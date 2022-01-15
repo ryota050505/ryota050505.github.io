@@ -1,25 +1,17 @@
 <template>
-  <v-row
-    justify="center"
-    align-content="center"
-  >
+  <v-row justify="center" align-content="center">
     <v-col>
-      <v-sheet
-        min-height="70vh"
-        rounded="lg"
-      >
-      <v-btn
-        v-for="(link, i) in contactLinks"
-        :key=i
-        icon
-        @click="jumpLinkTo(link.to)"
-      >
-        <v-icon
-          large
+      <v-sheet min-height="70vh" rounded="lg">
+        <v-btn
+          v-for="(link, i) in contactLinks"
+          :key="i"
+          icon
+          @click="jumpLinkTo(link.to)"
         >
-          {{ link.icon }}
-        </v-icon>
-      </v-btn>
+          <v-icon large>
+            {{ link.icon }}
+          </v-icon>
+        </v-btn>
       </v-sheet>
     </v-col>
   </v-row>
@@ -27,8 +19,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator'
-import { LocalHeader } from '@/types/LocalHeader'
+
 import { LinkList } from '@/types/LinkList'
+import { LocalHeader } from '@/types/LocalHeader'
 @Component
 export default class ContactPage extends Vue {
   contactLinks: LinkList = [
@@ -73,6 +66,5 @@ export default class ContactPage extends Vue {
   jumpLinkTo(url: string): void {
     window.open(url, '_blank')
   }
-
 }
 </script>

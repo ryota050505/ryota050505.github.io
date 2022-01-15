@@ -1,8 +1,5 @@
 <template>
-  <v-footer
-    app
-    :absolute=true
-  >
+  <v-footer app :absolute="true">
     <span>
       &copy; {{ new Date().getFullYear() }}
       りょーたの遊び場
@@ -11,9 +8,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator'
 @Component
-export default class FooterComponent extends Vue {
-
-}
+export default class FooterComponent extends Vue {}
 </script>

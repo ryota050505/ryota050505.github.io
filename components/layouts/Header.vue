@@ -1,25 +1,10 @@
 <template>
-  <v-app-bar
-    app
-    color="black"
-    flat
-  >
+  <v-app-bar app color="black" flat>
     <v-container class="py-0 fill-height">
-      <v-avatar
-        class="mr-10"
-        color="grey darken-1"
-        size="32"
-      ></v-avatar>
+      <v-avatar class="mr-10" color="grey darken-1" size="32"></v-avatar>
 
-      <v-btn
-        v-for="link in links"
-        :key="link"
-        :to="link.to"
-        text
-      >
-        <v-icon
-          large
-        >
+      <v-btn v-for="link in links" :key="link" :to="link.to" text>
+        <v-icon large>
           {{ link.icon }}
         </v-icon>
         {{ link.title }}
@@ -41,8 +26,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
-import { LinkList } from "~/types/LinkList";
+import { Component, Vue } from 'nuxt-property-decorator'
+
+import { LinkList } from '~/types/LinkList'
 @Component
 export default class HeaderComponent extends Vue {
   links: LinkList = [
@@ -75,7 +61,7 @@ export default class HeaderComponent extends Vue {
       title: 'Contact',
       to: '/contact',
       icon: 'mdi-email',
-    }
-  ];
+    },
+  ]
 }
 </script>

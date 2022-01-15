@@ -9,15 +9,11 @@ module.exports = {
     'plugin:nuxt/recommended',
     'prettier',
   ],
-  plugins: [
-    'simple-import-sort'
-  ],
+  plugins: ['simple-import-sort'],
   // add your custom rules here
   rules: {
-    "simple-import-sort/imports": "error",
-    "sort-imports": "off",
-    "import/first": "error",
-    "import/newline-after-import": "error",
-    "import/no-duplicates": "error",
+    semi: [2, 'never'],
+    'simple-import-sort/imports': 'error',
+    'sort-imports': ['error', { ignoreDeclarationSort: true }],
   },
 }

@@ -4,9 +4,8 @@ const environment = process.env.NODE_ENV
 const envfile = require(`./env/${environment}.ts`)
 
 export default {
-
   router: {
-    base: envfile.BASE_URL
+    base: envfile.BASE_URL,
   },
 
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -28,7 +27,13 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: `${envfile.BASE_URL}favicon.ico` }],
+    link: [
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: `${envfile.BASE_URL}favicon.ico`,
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -102,6 +107,6 @@ export default {
     googleGtag: {
       id: process.env.GOOGLE_ANALYTICS_ID,
       debug: true,
-    }
+    },
   },
 }

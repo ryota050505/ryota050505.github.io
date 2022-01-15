@@ -1,23 +1,19 @@
 <template>
   <v-app id="inspire">
-
-    <LayoutsHeader/>
+    <LayoutsHeader />
 
     <v-main class="grey lighten-3">
       <v-container>
-        <Nuxt/>
+        <Nuxt />
       </v-container>
     </v-main>
 
-    <LayoutsFooter/>
-
+    <LayoutsFooter />
   </v-app>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator';
+import { Component, Vue } from 'nuxt-property-decorator'
 @Component
-export default class DefaultLayout extends Vue {
-
-}
+export default class DefaultLayout extends Vue {}
 </script>
