@@ -1,3 +1,3 @@
 module.exports = {
-  BASE_URL: '/self-production/'
+  BASE_URL: '/takoyaki/'
 }
