@@ -80,6 +80,6 @@ export default {
   build: {},
 
   router: {
-    base: '/takoyaki/'
+    base: '/self-introduce/'
   }
 }
