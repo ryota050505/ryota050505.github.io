@@ -1,6 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
-const environment = process.env.NODE_ENV || 'local'
+const environment = process.env.NODE_ENV
 const envfile = require(`./env/${environment}.ts`)
 
 export default {
@@ -46,6 +46,10 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    // UAの場合
+    // '@nuxtjs/google-analytics',
+    // GA4の場合
+    '@nuxtjs/google-gtag',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -86,4 +90,18 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  // googleAnalytics: {
+  //   id: process.env.GOOGLE_ANALYTICS_ID
+  // },
+  googleGtag: {
+    id: process.env.GOOGLE_ANALYTICS_ID,
+    debug: true,
+  },
+  publicRuntimeConfig: {
+    googleGtag: {
+      id: process.env.GOOGLE_ANALYTICS_ID,
+      debug: true,
+    }
+  }
 }
