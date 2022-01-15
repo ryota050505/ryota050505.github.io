@@ -44,7 +44,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { LocalHeader } from '~/types/LocalHeader'
 export default Vue.extend({
   name: 'BlogPage',
+  head(): LocalHeader {
+    return {
+      title: 'Blog'
+    }
+  }
 })
 </script>

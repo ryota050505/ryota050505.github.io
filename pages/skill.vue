@@ -13,8 +13,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
-
+import { LocalHeader } from '~/types/LocalHeader'
 export default Vue.extend({
   name: 'SkillPage',
+  head(): LocalHeader {
+    return {
+      title: 'Skill'
+    }
+  }
 })
 </script>
