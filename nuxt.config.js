@@ -80,6 +80,6 @@ export default {
   build: {},
 
   router: {
-    base: '/self-introduce/'
+    base: '/self-introduction/'
   }
 }
