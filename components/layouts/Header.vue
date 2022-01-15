@@ -78,6 +78,11 @@ export default Vue.extend({
           to: '/news',
           icon: 'mdi-message-text',
         },
+        {
+          title: 'Contact',
+          to: '/contact',
+          icon: 'mdi-email',
+        }
       ],
     }
   }
