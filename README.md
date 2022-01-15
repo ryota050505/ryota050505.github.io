@@ -1,4 +1,8 @@
-# self-introduction
+# takoyaki
+
+## GitHub Pages
+
+[ちょくちょく作ってます](https://ryota050505.github.io/takoyaki/)
 
 ## Build Setup
 
