@@ -41,50 +41,41 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { LinkList } from "@/types/LinkList";
-
-export type HeaderData = {
-  links: LinkList
-}
-
-export default Vue.extend({
-  name: 'LayoutsHeader',
-  data(): HeaderData {
-    return {
-      links: [
-        {
-          title: 'Home',
-          to: '/',
-          icon: 'mdi-home',
-        },
-        {
-          title: 'Profile',
-          to: '/profile',
-          icon: 'mdi-face-man-profile',
-        },
-        {
-          title: 'Skill',
-          to: '/skill',
-          icon: 'mdi-laptop',
-        },
-        {
-          title: 'Blog',
-          to: 'blog',
-          icon: 'mdi-post',
-        },
-        {
-          title: 'News',
-          to: '/news',
-          icon: 'mdi-message-text',
-        },
-        {
-          title: 'Contact',
-          to: '/contact',
-          icon: 'mdi-email',
-        }
-      ],
+import { Component, Vue } from 'nuxt-property-decorator';
+import { LinkList } from "~/types/LinkList";
+@Component
+export default class HeaderComponent extends Vue {
+  links: LinkList = [
+    {
+      title: 'Home',
+      to: '/',
+      icon: 'mdi-home',
+    },
+    {
+      title: 'Profile',
+      to: '/profile',
+      icon: 'mdi-face-man-profile',
+    },
+    {
+      title: 'Skill',
+      to: '/skill',
+      icon: 'mdi-laptop',
+    },
+    {
+      title: 'Blog',
+      to: 'blog',
+      icon: 'mdi-post',
+    },
+    {
+      title: 'News',
+      to: '/news',
+      icon: 'mdi-message-text',
+    },
+    {
+      title: 'Contact',
+      to: '/contact',
+      icon: 'mdi-email',
     }
-  }
-})
+  ];
+}
 </script>

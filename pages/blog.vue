@@ -43,14 +43,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { Component, Vue } from 'nuxt-property-decorator';
 import { LocalHeader } from '~/types/LocalHeader'
-export default Vue.extend({
-  name: 'BlogPage',
+@Component
+export default class BlogPage extends Vue {
   head(): LocalHeader {
     return {
       title: 'Blog'
     }
   }
-})
+}
 </script>

@@ -12,14 +12,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { Component, Vue } from 'nuxt-property-decorator';
 import { LocalHeader } from '~/types/LocalHeader'
-export default Vue.extend({
-  name: 'NewsPage',
+@Component
+export default class NewsPage extends Vue {
   head(): LocalHeader {
     return {
       title: 'News',
     }
   }
-})
+}
 </script>

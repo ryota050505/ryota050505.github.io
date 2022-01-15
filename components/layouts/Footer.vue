@@ -11,8 +11,9 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
-  name: 'LayoutsFooter'
-})
+import { Component, Vue } from 'nuxt-property-decorator';
+@Component
+export default class FooterComponent extends Vue {
+
+}
 </script>
