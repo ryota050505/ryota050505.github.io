@@ -1,6 +1,14 @@
 import colors from 'vuetify/es5/util/colors'
 
+const environment = process.env.NODE_ENV || 'local'
+const envfile = require(`./env/${environment}.ts`)
+
 export default {
+
+  router: {
+    base: envfile.BASE_URL
+  },
+
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -20,7 +28,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: `${envfile.BASE_URL}favicon.ico` }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -78,8 +86,4 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
-
-  router: {
-    base: '/self-introduction/'
-  }
 }
