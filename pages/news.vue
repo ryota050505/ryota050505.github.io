@@ -48,30 +48,5 @@ export default class NewsPage extends Vue {
     const date = new Date(posts.list[0].dt_txt)
     return { posts, date }
   }
-
-  // async mounted() {
-  //   const ALBUM_API = "https://jsonplaceholder.typicode.com/albums"
-  //   const albums = await axios.get(ALBUM_API)
-  //   console.log("mounted:", albums)
-  // }
-  // async mounted() {
-  //   const url = "https://jsonplaceholder.typicode.com/posts/1/comments"
-  //   const result = await axios.get(url)
-  //   this.items = result.data.map((comment:any) => ({
-  //     postId: comment.postId,
-  //     email: comment.email,
-  //     name: comment.name,
-  //   }))
-  // }
-
-  // async asyncData() {
-  //   const url = "https://jsonplaceholder.typicode.com/posts/1/comments"
-  //   const result = await axios.get(url)
-  //   this.items = result.data.map((comment:any) => ({
-  //     postId: comment.postId,
-  //     email: comment.email,
-  //     name: comment.name,
-  //   }))
-  // }
 }
 </script>
