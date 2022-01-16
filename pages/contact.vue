@@ -6,14 +6,13 @@
           v-for="(link, i) in contactLinks"
           :key="i"
           icon
-          text
           link
-          class="mx-16 my-10"
+          :class="$vuetify.breakpoint.mobile ? 'mx-3 my-5' :'mx-16 my-10'"
           @click="jumpLinkTo(link.to)"
         >
         <v-hover v-slot="{ hover }">
           <v-icon
-            x-large
+            :x-large="!$vuetify.breakpoint.mobile"
             :color="hover ? link.color : ''"
           >
             {{ link.icon }}
