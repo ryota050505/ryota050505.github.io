@@ -25,6 +25,7 @@ jobs:
           yarn generate
         env:
           GOOGLE_ANALYTICS_ID: ${{ secrets.GOOGLE_ANALYTICS_ID }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
