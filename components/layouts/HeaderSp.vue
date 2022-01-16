@@ -31,15 +31,17 @@
             <v-list-item
               :to="link.to"
               nuxt
-              :ripple="{ center: true }"
+              :ripple="{ center: true, class: link.color.split(' ')[0] + '--text' }"
             >
             <v-list-item-content>
               <v-btn
                 text
+                plain
+                retain-focus-on-click
+                :ripple="false"
               >
               <v-icon
                 :color="hover || equalPathTo(link.to) ? link.color : ''"
-                flex
               >
                 {{ link.icon }}
               </v-icon>

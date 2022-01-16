@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
+import axios from "axios"
 import { Component, Vue } from 'nuxt-property-decorator'
 
 import { LocalHeader } from '~/types/LocalHeader'

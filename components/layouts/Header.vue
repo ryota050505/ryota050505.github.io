@@ -8,7 +8,8 @@
           :to="link.to"
           text
           nuxt
-          :ripple="{ center: true }"
+          plain
+          :ripple="{ center: true, class: link.color.split(' ')[0] + '--text' }"
         >
           <v-icon
             large
