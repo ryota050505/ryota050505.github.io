@@ -2,8 +2,12 @@
   <v-row>
     <v-col>
       <v-sheet min-height="70vh" rounded="lg">
-        <v-data-table dense :headers="headers" :items="items">
-        </v-data-table>
+        <title>{{ posts.city.name }}</title>
+        {{ date.getMonth()+1 }}月{{ date.getDate() }}日{{WEEK[date.getDay()] + date.getHours() + " :00"}}
+        <div>
+          {{ posts.list[0].weather[0].icon }}<br>
+          {{ Math.round(posts.list[0].main.temp) }}<br>
+        </div>
       </v-sheet>
     </v-col>
   </v-row>
@@ -17,7 +21,11 @@ import { LocalHeader } from '~/types/LocalHeader'
 @Component
 export default class NewsPage extends Vue {
 
+  WEEK = ["（日）","（月）","（火）","（水）","（木）","（金）","（土）"]
   items: any = []
+  posts: any = []
+  date: any = []
+
   headers = [
     { text: "id", value: "postId" },
     { text: "name", value: "name"},
@@ -30,15 +38,31 @@ export default class NewsPage extends Vue {
     }
   }
 
-  async mounted() {
-    const url = "https://jsonplaceholder.typicode.com/posts/1/comments"
-    const result = await axios.get(url)
-    this.items = result.data.map((comment:any) => ({
-      postId: comment.postId,
-      email: comment.email,
-      name: comment.name,
-    }))
+  async asyncData() {
+    const API_KEY = 'dc10c84b0dec1450cea5ffaf63d56554'
+    const city = 'Tokyo'
+    const url = 'http://api.openweathermap.org/data/2.5/forecast?q=' + city + ',jp&units=metric&APPID=' + API_KEY
+    const res = await axios.get(url)
+    const posts = res.data
+    console.log("asyncData:", posts)
+    const date = new Date(posts.list[0].dt_txt)
+    return { posts, date }
   }
+
+  // async mounted() {
+  //   const ALBUM_API = "https://jsonplaceholder.typicode.com/albums"
+  //   const albums = await axios.get(ALBUM_API)
+  //   console.log("mounted:", albums)
+  // }
+  // async mounted() {
+  //   const url = "https://jsonplaceholder.typicode.com/posts/1/comments"
+  //   const result = await axios.get(url)
+  //   this.items = result.data.map((comment:any) => ({
+  //     postId: comment.postId,
+  //     email: comment.email,
+  //     name: comment.name,
+  //   }))
+  // }
 
   // async asyncData() {
   //   const url = "https://jsonplaceholder.typicode.com/posts/1/comments"
