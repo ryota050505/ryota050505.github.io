@@ -2,12 +2,14 @@
   <v-row>
     <v-col>
       <v-sheet min-height="70vh" rounded="lg">
-        <title>{{ posts.city.name }}</title>
-        {{ date.getMonth()+1 }}月{{ date.getDate() }}日{{WEEK[date.getDay()] + date.getHours() + " :00"}}
-        <div>
-          {{ posts.list[0].weather[0].icon }}<br>
-          {{ Math.round(posts.list[0].main.temp) }}<br>
-        </div>
+        <v-containrer>
+          <title>{{ posts.city.name }}</title>
+          {{ date.getMonth()+1 }}月{{ date.getDate() }}日{{WEEK[date.getDay()] + date.getHours() + " :00"}}
+          <div>
+            {{ posts.list[0].weather[0].icon }}<br>
+            {{ Math.round(posts.list[0].main.temp) }}<br>
+          </div>
+        </v-containrer>
       </v-sheet>
     </v-col>
   </v-row>
