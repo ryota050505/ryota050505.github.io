@@ -41,7 +41,7 @@ export default class NewsPage extends Vue {
   async asyncData() {
     const API_KEY = 'dc10c84b0dec1450cea5ffaf63d56554'
     const city = 'Tokyo'
-    const url = 'http://api.openweathermap.org/data/2.5/forecast?q=' + city + ',jp&units=metric&APPID=' + API_KEY
+    const url = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + ',jp&units=metric&APPID=' + API_KEY
     const res = await axios.get(url)
     const posts = res.data
     console.log("asyncData:", posts)
