@@ -1,6 +1,11 @@
 <template>
   <v-app id="inspire">
-    <LayoutsHeader />
+    <LayoutsHeader
+      v-if="!$vuetify.breakpoint.mobile"
+    />
+    <LayoutsHeaderSp
+      v-else
+    />
 
     <v-main class="grey lighten-3">
       <v-container>

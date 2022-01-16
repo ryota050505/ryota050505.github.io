@@ -3,22 +3,22 @@
     <v-container class="py-0 fill-height">
       <v-avatar class="mr-10" color="grey darken-1" size="32"></v-avatar>
 
-        <v-hover v-for="(link, i) in links" :key="i" v-slot="{ hover }">
-          <v-btn
-            :to="link.to"
-            text
-            nuxt
-            :ripple="{ center: true }"
+      <v-hover v-for="(link, i) in links" :key="i" v-slot="{ hover }">
+        <v-btn
+          :to="link.to"
+          text
+          nuxt
+          :ripple="{ center: true }"
+        >
+          <v-icon
+            large
+            :color="hover || equalPathTo(link.to) ? link.color : ''"
           >
-            <v-icon
-              large
-              :color="hover || equalPathTo(link.to) ? link.color : ''"
-            >
-              {{ link.icon }}
-            </v-icon>
-            {{ link.title }}
-          </v-btn>
-        </v-hover>
+            {{ link.icon }}
+          </v-icon>
+          {{ link.title }}
+        </v-btn>
+      </v-hover>
 
       <v-spacer></v-spacer>
 
