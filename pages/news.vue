@@ -40,13 +40,13 @@ export default class NewsPage extends Vue {
     }
   }
 
-  async asyncData() {
-    const API_KEY = this.$config.WEATHER_API_KEY
+  async asyncData({ $config }:any) {
+    const API_KEY = $config.WEATHER_API_KEY
     const city = 'Tokyo'
     const url = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + ',jp&units=metric&APPID=' + API_KEY
     const res = await axios.get(url)
     const posts = res.data
-    console.log("asyncData:", posts)
+    console.log('asyncData:', posts)
     const date = new Date(posts.list[0].dt_txt)
     return { posts, date }
   }
