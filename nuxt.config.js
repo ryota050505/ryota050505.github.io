@@ -117,5 +117,6 @@ export default {
       id: process.env.GOOGLE_ANALYTICS_ID,
       debug: true,
     },
+    WEATHER_API_KEY: process.env.WEATHER_API_KEY,
   },
 }
