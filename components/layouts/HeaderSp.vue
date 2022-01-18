@@ -17,7 +17,7 @@
         :drawer.sync="drawer"
       >
         <template
-          v-for="(link, i) in links"
+          v-for="(link, i) in linkList"
         >
           <MaterialsHeaderLinkSp
             :key="i"

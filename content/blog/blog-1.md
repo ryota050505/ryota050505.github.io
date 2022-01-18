@@ -1,5 +1,6 @@
 ---
-title: nuxt/contentでMarkdownのブログを作る
+title: nuxt/contentでMarkdownのブログ作成
+imgsrc: nuxtjs_vuetify.png
 description: Generate blog from Markdown with nuxt/content
 position: 1
 category: Test

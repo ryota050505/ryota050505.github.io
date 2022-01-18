@@ -29,7 +29,8 @@ export default class SearchButton extends Pathable {
   private search() {
     this.$router.push({
       query: {
-        q: this.query
+        q: this.query,
+        category: this.$route.query.category
       }
     })
   }
