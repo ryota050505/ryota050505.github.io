@@ -1,0 +1,10 @@
+{
+  "title": "Nuxt Blog",
+  "url": "https://ryota050505.github.io/takoyaki/",
+  "logo": {
+    "light": "/logo-light.svg",
+    "dark": "logo-dark.svg"
+  },
+  "github": "ryota050505/takoyaki/",
+  "twitter": "@05_BOC_05"
+}
