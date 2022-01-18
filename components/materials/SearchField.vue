@@ -38,12 +38,20 @@ export default class SeachField extends Pathable {
 
   private search(keyCode: number): void {
     if (keyCode !== ENTER_KEY_CODE) return
-    this.$router.push({
-      query: {
-        q: this.syncedQuery,
-        category: this.$route.query.category
-      }
-    })
+    if (this.syncedQuery) {
+      this.$router.push({
+        query: {
+          q: this.syncedQuery,
+          category: this.$route.query.category
+        }
+      })
+    } else {
+      this.$router.push({
+        query: {
+          category: this.$route.query.category
+        }
+      })
+    }
   }
 }
 </script>

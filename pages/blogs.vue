@@ -43,7 +43,9 @@
     <v-col>
       <v-sheet rounded="lg" light>
         <v-container>
-          <v-row>
+
+          <v-row
+          >
             <v-col
               v-if="getBlogs.length === 0"
               cols="12"
@@ -60,37 +62,48 @@
                 検索結果が存在しません
               </v-alert>
             </v-col>
+
             <v-col
-              v-for="(blog,i) in getBlogs" :key="i"
+              v-for="(blog, i) in getBlogs"
+              :key="'col-' + i"
               cols="12"
               sm="12"
               md="4"
               lg="4"
             >
-              <v-card
-                nuxt
-                light
-                hover
-                color="green accent-1"
-                :ripple="{ center: true }"
-                :to="blog.path"
+              <v-hover
+                v-slot="{ hover }"
               >
-                <v-img
-                  :src="require(`@/assets/img/${blog.imgsrc}`)"
-                />
-                <v-divider
-                />
-                <v-card-title
-                  class=""
-                  v-text="blog.title"
-                />
-                <v-card-text>
-                  <p>{{ blog.description }}</p>
-                  <time :datetime="blog.createdAt">
-                    {{ $dateFns.format(new Date(blog.createdAt), 'yyyy/MM/dd') }}
-                  </time>
-                </v-card-text>
-              </v-card>
+                <v-card
+                  nuxt
+                  light
+                  hover
+                  color="white"
+                  :shaped="hover"
+                  :ripple="{ center: true }"
+                  :to="blog.path"
+                >
+                  <v-img
+                    :src="require(`@/assets/img/${blog.imgsrc}`)"
+                    aspect-ratio="1/1"
+                    contain
+                    height="200"
+                    width="100%"
+                  />
+                  <v-divider
+                  />
+                  <v-card-title
+                    color="green"
+                    v-text="blog.title"
+                  />
+                  <v-card-text>
+                    <p>{{ blog.description }}</p>
+                    <time :datetime="blog.createdAt">
+                      {{ $dateFns.format(new Date(blog.createdAt), 'yyyy/MM/dd') }}
+                    </time>
+                  </v-card-text>
+                </v-card>
+              </v-hover>
             </v-col>
           </v-row>
         </v-container>
@@ -127,7 +140,7 @@ export default class BlogsPage extends Vue {
 
   async asyncData({ $content, route }: { $content: any, route: any}) {
 
-    let query = $content('blog', { deep: true }).sortBy('date', 'desc')
+    let query = $content('blog', { deep: true }).sortBy('createdAt', 'desc')
 
     const q: string = route.query.q
     const category: string = route.query.category
