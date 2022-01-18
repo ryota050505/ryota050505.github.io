@@ -1,18 +1,18 @@
 <template>
   <v-app id="inspire">
-    <LayoutsHeader
-      v-if="!$vuetify.breakpoint.mobile"
-    />
     <LayoutsHeaderSp
+      v-if="$vuetify.breakpoint.mobile"
+    />
+    <LayoutsHeader
       v-else
     />
 
     <v-main class="grey lighten-3">
       <v-container>
-        <Nuxt />
+        <Nuxt
+        />
       </v-container>
     </v-main>
-
     <LayoutsFooter />
   </v-app>
 </template>

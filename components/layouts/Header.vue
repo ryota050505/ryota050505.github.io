@@ -1,48 +1,49 @@
 <template>
-  <v-app-bar app color="black" flat>
+  <v-app-bar
+    app
+    color="black"
+    flat
+  >
     <v-container class="py-0 fill-height">
-      <v-avatar class="mr-10" color="grey darken-1" size="32"></v-avatar>
 
-      <v-hover v-for="(link, i) in links" :key="i" v-slot="{ hover }">
-        <v-btn
-          :to="link.to"
-          text
-          nuxt
-          :ripple="{ center: true, class: link.color.split(' ')[0] + '--text' }"
-        >
-          <v-icon
-            large
-            :color="hover || equalPathTo(link.to) ? link.color : ''"
-          >
-            {{ link.icon }}
-          </v-icon>
-          {{ link.title }}
-        </v-btn>
-      </v-hover>
+      <MaterialsLogo
+      />
 
-      <v-spacer></v-spacer>
+      <template
+        v-for="(link, i) in links"
+      >
+        <MaterialsHeaderLink
+          :key="i"
+          :link="link"
+        />
+      </template>
 
-      <v-responsive max-width="260">
-        <v-text-field
-          dense
-          flat
-          hide-details
-          rounded
-          solo-inverted
-          :disabled="!(equalPathTo('/blog') || equalPathTo('/news'))"
-        ></v-text-field>
-      </v-responsive>
+      <v-spacer/>
+
+      <MaterialsSearchField
+        :query.sync="query"
+      />
+      <MaterialsSearchButton
+        :query="query"
+      />
     </v-container>
   </v-app-bar>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'nuxt-property-decorator'
+import {
+  Component,
+  Vue,
+} from 'nuxt-property-decorator'
 
-import { LinkList } from '~/types/LinkList'
+import {
+  LinkList,
+} from '~/types/LinkList'
 @Component
-export default class HeaderComponent extends Vue {
-  links: LinkList = [
+export default class Header extends Vue {
+  protected query: string = ""
+
+  protected links: LinkList = [
     {
       title: 'Home',
       to: '/',
@@ -63,7 +64,7 @@ export default class HeaderComponent extends Vue {
     },
     {
       title: 'Blog',
-      to: '/blog',
+      to: '/blogs',
       icon: 'mdi-post',
       color: 'orange accent-3',
     },
@@ -80,13 +81,5 @@ export default class HeaderComponent extends Vue {
       color: 'lime accent-3'
     },
   ]
-
-  public get path() : string {
-    return this.$route.path
-  }
-
-  public equalPathTo(path: string) : boolean {
-    return this.path === path
-  }
 }
 </script>

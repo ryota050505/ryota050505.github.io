@@ -6,77 +6,48 @@
     clipped-left
   >
     <v-container class="py-0 fill-height">
-      <v-app-bar-nav-icon
-        color="white"
-        @click="drawer = true"
+      <MaterialsNavIcon
+        :drawer.sync="drawer"
       />
-      <v-avatar class="mr-10" color="grey darken-1" size="32"></v-avatar>
 
-      <v-navigation-drawer
-        v-model="drawer"
-        app
-        fixed
-        hide-overlay
+      <MaterialsLogo
+      />
+
+      <MaterialsNavList
+        :drawer.sync="drawer"
       >
-        <v-list
-          nav
-          dense
+        <template
+          v-for="(link, i) in links"
         >
-          <v-list-item-group>
-            <v-hover
-              v-for="(link, i) in links"
-              v-slot="{ hover }"
-              :key="i"
-            >
-            <v-list-item
-              :to="link.to"
-              nuxt
-              :ripple="{ center: true, class: link.color.split(' ')[0] + '--text' }"
-            >
-            <v-list-item-content>
-              <v-btn
-                text
-                plain
-                retain-focus-on-click
-                :ripple="false"
-              >
-              <v-icon
-                :color="hover || equalPathTo(link.to) ? link.color : ''"
-              >
-                {{ link.icon }}
-              </v-icon>
-              <v-list-item-title v-text="link.title"/>
-              </v-btn>
-            </v-list-item-content>
-            </v-list-item>
-            </v-hover>
-          </v-list-item-group>
-        </v-list>
-      </v-navigation-drawer>
+          <MaterialsHeaderLinkSp
+            :key="i"
+            :link="link"
+          />
+        </template>
+      </MaterialsNavList>
 
-      <v-spacer></v-spacer>
+      <v-spacer/>
 
-      <v-responsive max-width="150">
-        <v-text-field
-          dense
-          flat
-          hide-details
-          rounded
-          solo-inverted
-          :disabled="!(equalPathTo('/blog') || equalPathTo('/news'))"
-        ></v-text-field>
-      </v-responsive>
+      <MaterialsSearchField
+        :query.sync="query"
+        :max-width="$MAX_WIDTH_SP"
+      />
+      <MaterialsSearchButton
+        :query="query"
+      />
     </v-container>
   </v-app-bar>
 </template>
 
 <script lang="ts">
-import { Component } from 'nuxt-property-decorator'
+import {
+  Component
+} from 'nuxt-property-decorator'
 
-import HeaderComponent from './Header.vue'
+import Header from './Header.vue'
 
 @Component
-export default class HeaderSpComponent extends HeaderComponent {
-  drawer = false
+export default class HeaderSp extends Header {
+  private drawer = false
 }
 </script>

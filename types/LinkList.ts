@@ -5,4 +5,9 @@ type Link = {
   color?: string
 }
 
-export type LinkList = Link[]
+type LinkList = Link[]
+
+export {
+  Link,
+  LinkList,
+}
