@@ -35,7 +35,7 @@
             @click="clearCategoryQuery()"
           >
             <v-list-item-title
-              style='text-align: center;'
+              class="text-center"
               v-text="'CATEGORY'"
             />
           </v-list-item>
@@ -45,7 +45,7 @@
             @click="searchByCategory(item)"
           >
             <v-list-item-title
-              style='text-align: center;'
+              class="text-center"
               v-text="item"
             />
           </v-list-item>
@@ -102,31 +102,30 @@
                     class="rounded-card d-flex flex-column"
                     color="white"
                     height="100%"
-                    max-width="100%"
+                    width="100%"
                     :shaped="hover"
                     :ripple="{ center: true }"
                     :to="blog.path"
                   >
                     <v-img
                       :src="require(`@/assets/img/${blog.imgsrc}`)"
-                      style="max-height:214px" height="214px"
+                      height="214px" style="max-height: 214px"
                     />
-                    <v-spacer/>
                     <v-divider
                     />
                     <v-spacer/>
                     <v-card-title
-                      justify="center"
                       v-text="blog.title"
                     />
                     <v-spacer/>
                     <v-card-text
-                      height="100%"
+                      class="text-center"
                     >
                       <p>{{ blog.description }}</p>
                     </v-card-text>
                     <v-spacer/>
                     <v-card-text
+                      class="text-right"
                       height="100%"
                     >
                       <time :datetime="blog.createdAt" height="100%">
@@ -137,6 +136,7 @@
                       <v-overlay
                         v-if="hover"
                         absolute
+                        :z-index="0"
                       >
                         <v-btn>
                           See more info
@@ -154,9 +154,9 @@
     <v-col
       xs="1"
       sm="1"
-      md="2"
-      lg="2"
-      xl="2"
+      md="1"
+      lg="1"
+      xl="1"
       cols="1"
     />
   </v-row>
