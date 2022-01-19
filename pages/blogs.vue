@@ -10,15 +10,24 @@
     >
       <v-menu transition="scroll-y-transition">
         <template
-          #activator="{ on, attrs }"
+          #activator="{ on: menu, attrs }"
         >
-          <v-btn
-            style="text-transform:none"
-            v-bind="attrs"
-            width="100%"
-            v-on="on"
-            v-text="getCategoryButtonText"
-          />
+          <v-tooltip
+            bottom
+          >
+            <template
+              #activator="{ on: tooltip }"
+            >
+              <v-btn
+                style="text-transform:none"
+                v-bind="attrs"
+                width="100%"
+                v-on="{ ...tooltip, ...menu }"
+                v-text="getCategoryButtonText"
+              />
+            </template>
+            <span>please choose category</span>
+          </v-tooltip>
         </template>
         <v-list>
           <v-list-item
@@ -75,55 +84,68 @@
               md="4"
               lg="4"
             >
-              <v-hover
-                v-slot="{ hover }"
+              <v-lazy
+                v-model="lazyIsActive"
+                :options="{
+                  threshold: 1.0
+                }"
+                transition="fade-transition"
+                height="100%"
               >
-                <v-card
-                  nuxt
-                  light
-                  hover
-                  class="rounded-card"
-                  color="white"
-                  height="100%"
-                  :shaped="hover"
-                  :ripple="{ center: true }"
-                  :to="blog.path"
+                <v-hover
+                  v-slot="{ hover }"
                 >
-                  <v-img
-                    :src="require(`@/assets/img/${blog.imgsrc}`)"
-                    aspect-ratio="1/1"
-                    contain
-                    height="200"
-                    width="100%"
-                  />
-                  <v-divider
-                  />
-                  <v-card-title
-                    color="green"
-                    v-text="blog.title"
-                  />
-                  <v-card-text>
-                    <p>{{ blog.description }}</p>
-                  </v-card-text>
-                  <v-card-text
-                    class="mb-0 absolute"
+                  <v-card
+                    nuxt
+                    light
+                    hover
+                    class="rounded-card d-flex flex-column"
+                    color="white"
+                    height="100%"
+                    max-width="100%"
+                    :shaped="hover"
+                    :ripple="{ center: true }"
+                    :to="blog.path"
                   >
-                    <time :datetime="blog.createdAt">
-                      {{ $dateFns.format(new Date(blog.createdAt), 'yyyy/MM/dd') }}
-                    </time>
-                  </v-card-text>
-                  <v-fade-transition>
-                    <v-overlay
-                      v-if="hover"
-                      absolute
+                    <v-img
+                      :src="require(`@/assets/img/${blog.imgsrc}`)"
+                      style="max-height:214px" height="214px"
+                    />
+                    <v-spacer/>
+                    <v-divider
+                    />
+                    <v-spacer/>
+                    <v-card-title
+                      justify="center"
+                      v-text="blog.title"
+                    />
+                    <v-spacer/>
+                    <v-card-text
+                      height="100%"
                     >
-                      <v-btn>
-                        See more info
-                      </v-btn>
-                    </v-overlay>
-                  </v-fade-transition>
-                </v-card>
-              </v-hover>
+                      <p>{{ blog.description }}</p>
+                    </v-card-text>
+                    <v-spacer/>
+                    <v-card-text
+                      height="100%"
+                    >
+                      <time :datetime="blog.createdAt" height="100%">
+                        {{ $dateFns.format(new Date(blog.createdAt), 'yyyy/MM/dd') }}
+                      </time>
+                    </v-card-text>
+                    <v-fade-transition>
+                      <v-overlay
+                        v-if="hover"
+                        absolute
+                      >
+                        <v-btn>
+                          See more info
+                        </v-btn>
+                      </v-overlay>
+                    </v-fade-transition>
+                  </v-card>
+                </v-hover>
+              </v-lazy>
             </v-col>
           </v-row>
         </v-container>
@@ -160,6 +182,7 @@ export default class BlogsPage extends Vue {
   private blogs!: Object[]
   private categories!: string[]
   private categoryButtonText = "CATEGORY"
+  private lazyIsActive = false
 
   head(): LocalHeader {
     return {

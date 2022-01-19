@@ -70,25 +70,13 @@ import {
 @Component
 export default class BlogDetail extends Vue {
   async asyncData({ $content, params}: {$content: any, params: any }) {
-    // const { position: lastPosition } = await $content('blog')
-    //   .only(['position'])
-    //   .sortBy('position', 'desc')
-    //   .limit(1)
-    //   .fetch()
-    // console.log(lastPosition, params.slug)
     const blog = await $content('blog', params.slug).fetch()
-    console.log('blog', blog)
-    // const options = {
-    //   before: blog.position === 1 ? 0 : 1,
-    //   after: blog.position === lastPosition ? 0 : 1,
-    // }
+
     const [prev, next] = await $content('blog', { deep: true })
       .only(['title', 'slug'])
-      .sortBy('date', 'desc')
+      .sortBy('createdAt', 'asc')
       .surround(params.slug)
       .fetch()
-
-    console.log("prev", prev, "next", next)
 
     return {
       blog,
