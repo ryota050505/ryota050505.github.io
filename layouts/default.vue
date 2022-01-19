@@ -9,8 +9,12 @@
 
     <v-main class="grey lighten-3">
       <v-container>
+        <v-fade-transition
+          mode="out-in"
+        >
         <Nuxt
         />
+        </v-fade-transition>
       </v-container>
     </v-main>
     <LayoutsFooter />

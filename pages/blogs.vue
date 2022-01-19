@@ -1,43 +1,47 @@
 <template>
   <v-row>
     <v-col
+      v-if="$vuetify.breakpoint.mobile"
+      cols="1"
+    />
+    <v-col
       v-if="!$vuetify.breakpoint.mobile"
       cols="2"
     >
-      <v-sheet rounded="lg">
-        <v-list color="transparent">
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title> Category </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-divider class="my-2"/>
-
-          <v-list-item
-            v-for="(c, i) in categories"
-            :key="i"
-            link
-            @click="searchByCategory(c)"
-            >
-            <v-list-item-content>
-              <v-list-item-title> {{ c }} </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-divider class="my-2"/>
-
+      <v-menu transition="scroll-y-transition">
+        <template
+          #activator="{ on, attrs }"
+        >
+          <v-btn
+            style="text-transform:none"
+            v-bind="attrs"
+            width="100%"
+            v-on="on"
+            v-text="getCategoryButtonText"
+          />
+        </template>
+        <v-list>
           <v-list-item
             link
             @click="clearCategoryQuery()"
           >
-            <v-list-item-content>
-              <v-list-item-title> Clear </v-list-item-title>
-            </v-list-item-content>
+            <v-list-item-title
+              style='text-align: center;'
+              v-text="'CATEGORY'"
+            />
           </v-list-item>
-
+          <v-list-item
+            v-for="(item, i) in categories"
+            :key="i"
+            @click="searchByCategory(item)"
+          >
+            <v-list-item-title
+              style='text-align: center;'
+              v-text="item"
+            />
+          </v-list-item>
         </v-list>
-      </v-sheet>
+      </v-menu>
     </v-col>
 
     <v-col>
@@ -78,7 +82,9 @@
                   nuxt
                   light
                   hover
+                  class="rounded-card"
                   color="white"
+                  height="100%"
                   :shaped="hover"
                   :ripple="{ center: true }"
                   :to="blog.path"
@@ -98,10 +104,24 @@
                   />
                   <v-card-text>
                     <p>{{ blog.description }}</p>
+                  </v-card-text>
+                  <v-card-text
+                    class="mb-0 absolute"
+                  >
                     <time :datetime="blog.createdAt">
                       {{ $dateFns.format(new Date(blog.createdAt), 'yyyy/MM/dd') }}
                     </time>
                   </v-card-text>
+                  <v-fade-transition>
+                    <v-overlay
+                      v-if="hover"
+                      absolute
+                    >
+                      <v-btn>
+                        See more info
+                      </v-btn>
+                    </v-overlay>
+                  </v-fade-transition>
                 </v-card>
               </v-hover>
             </v-col>
@@ -109,6 +129,14 @@
         </v-container>
       </v-sheet>
     </v-col>
+    <v-col
+      xs="1"
+      sm="1"
+      md="2"
+      lg="2"
+      xl="2"
+      cols="1"
+    />
   </v-row>
 </template>
 
@@ -131,6 +159,7 @@ export default class BlogsPage extends Vue {
 
   private blogs!: Object[]
   private categories!: string[]
+  private categoryButtonText = "CATEGORY"
 
   head(): LocalHeader {
     return {
@@ -153,16 +182,19 @@ export default class BlogsPage extends Vue {
     categories = Array.from(
       new Map(categories.map((category: any) => [category.category, category.category])).values(),
     )
-    console.log(blogs, categories)
     return { q, category, blogs, categories }
   }
 
   get getBlogs() {
-    console.log('getBlogs', this.blogs)
     return this.blogs
   }
 
+  get getCategoryButtonText() {
+    return this.categoryButtonText
+  }
+
   private searchByCategory(category: string) {
+    this.categoryButtonText = category
     this.$router.push({
       query: {
         q: this.$route.query.q,
@@ -172,6 +204,7 @@ export default class BlogsPage extends Vue {
   }
 
   private clearCategoryQuery() {
+    this.categoryButtonText = 'CATEGORY'
     this.$router.push({
       query: {
         q: this.$route.query.q,
