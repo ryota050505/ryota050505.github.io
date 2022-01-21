@@ -22,9 +22,11 @@ import {
 } from 'nuxt-property-decorator'
 
 import {
+  ENTER_KEY_CODE
+} from '~/plugins/constants'
+import {
   Pathable,
 } from '~/types/Pathable'
-
 @Component
 export default class SeachField extends Pathable {
 
@@ -35,12 +37,21 @@ export default class SeachField extends Pathable {
   private maxWidth!: number
 
   private search(keyCode: number): void {
-    if (keyCode !== 13) return
-    this.$router.push({
-      query: {
-        q: this.syncedQuery
-      }
-    })
+    if (keyCode !== ENTER_KEY_CODE) return
+    if (this.syncedQuery) {
+      this.$router.push({
+        query: {
+          q: this.syncedQuery,
+          category: this.$route.query.category
+        }
+      })
+    } else {
+      this.$router.push({
+        query: {
+          category: this.$route.query.category
+        }
+      })
+    }
   }
 }
 </script>

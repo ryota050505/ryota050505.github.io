@@ -1,39 +1,154 @@
 <template>
   <v-row>
-    <v-col cols="2">
-      <v-sheet rounded="lg">
-        <v-list color="transparent">
-          <v-list-item v-for="n in 5" :key="n" link>
-            <v-list-item-content>
-              <v-list-item-title> List Item {{ n }} </v-list-item-title>
-            </v-list-item-content>
+    <v-col
+      v-if="$vuetify.breakpoint.mobile"
+      cols="1"
+    />
+    <v-col
+      v-if="!$vuetify.breakpoint.mobile"
+      cols="2"
+    >
+      <v-menu transition="scroll-y-transition">
+        <template
+          #activator="{ on: menu, attrs }"
+        >
+          <v-tooltip
+            bottom
+          >
+            <template
+              #activator="{ on: tooltip }"
+            >
+              <v-btn
+                style="text-transform:none"
+                v-bind="attrs"
+                width="100%"
+                v-on="{ ...tooltip, ...menu }"
+                v-text="CategoryButtonText"
+              />
+            </template>
+            <span>please choose category</span>
+          </v-tooltip>
+        </template>
+        <v-list>
+          <v-list-item
+            link
+            @click="clearCategoryQuery()"
+          >
+            <v-list-item-title
+              class="text-center"
+              v-text="'CATEGORY'"
+            />
           </v-list-item>
-
-          <v-divider class="my-2"></v-divider>
-
-          <v-list-item link color="grey lighten-4">
-            <v-list-item-content>
-              <v-list-item-title> Refresh </v-list-item-title>
-            </v-list-item-content>
+          <v-list-item
+            v-for="(item, i) in categories"
+            :key="i"
+            @click="searchByCategory(item.category)"
+          >
+            <v-list-item-title
+              class="text-center"
+              v-text="item.category + '(' + item.count + ')'"
+            />
           </v-list-item>
         </v-list>
-      </v-sheet>
+      </v-menu>
     </v-col>
 
     <v-col>
-      <v-sheet min-height="70vh" rounded="lg">
-        <ul>
-          <li v-for="blog in blogs" :key="blog.slug">
-            <nuxt-link :to="blog.path">
-              <time :datetime="blog.createdAt">
-                {{ $dateFns.format(new Date(blog.createdAt), 'yyyy/MM/dd') }}
-              </time>
-              <p>{{ blog.title }}</p>
-            </nuxt-link>
-          </li>
-        </ul>
+      <v-sheet rounded="lg" light>
+        <v-container>
+
+          <v-row
+          >
+            <v-col
+              v-if="blogs.length === 0"
+              cols="12"
+              justify="center"
+              align="center"
+            >
+              <v-alert
+                border="right"
+                text
+                colored-border
+                type="info"
+                elevation="2"
+              >
+                記事がありません
+              </v-alert>
+            </v-col>
+
+            <v-col
+              v-for="(blog, i) in blogs"
+              :key="'col-' + i"
+              cols="12"
+              sm="12"
+              md="4"
+              lg="4"
+            >
+              <v-lazy
+                :options="{
+                  threshold: 1.0
+                }"
+                transition="fade-transition"
+                height="100%"
+              >
+                <v-hover
+                  v-slot="{ hover }"
+                >
+                  <v-card
+                    nuxt
+                    light
+                    hover
+                    class="rounded-card d-flex flex-column"
+                    color="white"
+                    height="100%"
+                    width="100%"
+                    :ripple="{ center: true }"
+                    :to="blog.path"
+                  >
+                    <v-responsive
+                      :aspect-ratio="1"
+                    >
+                    <v-img
+                      :src="require(`@/assets/img/${blog.imgsrc ? blog.imgsrc : 'nuxtjs_vuetify.png'}`)"
+                      :aspect-ratio="16/10"
+                    >
+                      <v-btn
+                        style="text-transform:none;"
+                        depressed
+                        color="orange accent-1"
+                      >
+                        {{ blog.category }}
+                      </v-btn>
+                    </v-img>
+                    <v-divider
+                    />
+                    <v-card-title
+                      height="100%"
+                      v-text="blog.title"
+                    />
+                    <v-fade-transition>
+                      <v-overlay
+                        v-if="hover"
+                        absolute
+                        :z-index="0"
+                      >
+                        <v-btn>
+                          See more info
+                        </v-btn>
+                      </v-overlay>
+                    </v-fade-transition>
+                    </v-responsive>
+                  </v-card>
+                </v-hover>
+              </v-lazy>
+            </v-col>
+          </v-row>
+        </v-container>
       </v-sheet>
     </v-col>
+    <v-col
+      cols="1"
+    />
   </v-row>
 </template>
 
@@ -47,9 +162,56 @@ import {
   LocalHeader,
 } from '~/types/LocalHeader'
 @Component({
-  watchQuery: ['q']
+  async asyncData({ $content, route }: { $content: any, route: any }) {
+    const { q, category } = route.query
+
+    let query = $content(
+        'blog',
+        { deep: true }
+      )
+      .sortBy('createdAt', 'desc')
+
+    if (q) query = query.search(q)
+    if (category) query = query.where({ category })
+
+    const blogs = await query.fetch()
+
+    let categories = await $content(
+        'blog',
+        { deep: true }
+      )
+      .only(['category'])
+      .fetch()
+      .then((res: any) => {
+        return  [...new Set(res.map((r: any) => r.category))]
+      })
+
+    categories = await Promise.all(categories.map((c: string) => $content('blog')
+      .only(['slug'])
+      .where({ category: c })
+      .fetch()
+      .then((res: any) => ({
+        category: c,
+        count: res.length,
+      }))
+    ))
+
+    return {
+      q,
+      category,
+      blogs,
+      categories,
+    }
+  },
+  watchQuery: [
+    'q',
+    'category',
+    'page',
+  ],
 })
 export default class BlogsPage extends Vue {
+
+  private categoryButtonText = "CATEGORY"
 
   head(): LocalHeader {
     return {
@@ -57,12 +219,31 @@ export default class BlogsPage extends Vue {
     }
   }
 
-  async asyncData({ $content, route }: { $content: any, route: any}) {
-    const q: string = route.query.q
-    let query = $content('blog', { deep: true }).sortBy('date', 'desc')
-    if (q) query = query.search(q)
-    const blogs = await query.fetch()
-    return { q, blogs }
+  get CategoryButtonText() {
+    return this.categoryButtonText
+  }
+
+  set CategoryButtonText(newVal: string) {
+    this.categoryButtonText = newVal
+  }
+
+  private searchByCategory(category: string) {
+    this.CategoryButtonText = category
+    this.$router.push({
+      query: {
+        q: this.$route.query.q,
+        category,
+      }
+    })
+  }
+
+  private clearCategoryQuery() {
+    this.CategoryButtonText = 'CATEGORY'
+    this.$router.push({
+      query: {
+        q: this.$route.query.q,
+      }
+    })
   }
 }
 </script>

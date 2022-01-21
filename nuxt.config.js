@@ -33,11 +33,19 @@ export default {
         type: 'image/x-icon',
         href: `${envfile.BASE_URL}favicon.ico`,
       },
+      {
+        rel: 'stylesheet',
+        href: 'https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css'
+      },
     ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [
+    // 'gitbook-markdown-css',
+    // 'github-markdown-css',
+    '~/assets/css/markdown.css',
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
@@ -67,6 +75,12 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
+    [
+      'vue-scrollto/nuxt',
+      {
+        offset: -70
+      }
+    ]
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -76,7 +90,18 @@ export default {
   },
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
-  content: {},
+  content: {
+    markdown: {
+      remarkPlugins: [
+        'remark-math',
+        'remark-emoji',
+        'remark-code-titles',
+      ],
+      rehypePlugins: [
+        'rehype-katex',
+      ],
+    }
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -123,4 +148,13 @@ export default {
     },
     WEATHER_API_KEY: process.env.WEATHER_API_KEY,
   },
+
+  generate: {
+    async routes() {
+      const { $content } = require('@nuxt/content')
+      const files = await $content().only(['path']).fetch()
+
+      return files.map(file => file.path === '/index' ? '/' : file.path)
+    }
+  }
 }
