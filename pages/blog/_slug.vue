@@ -51,6 +51,7 @@
             >
               {{ blog.title }}
             </h1>
+            <v-divider/>
             <NuxtContent
               class="markdown-body mx-5"
               :document="blog"
@@ -74,6 +75,7 @@ import {
   Component,
   Vue,
 } from 'nuxt-property-decorator'
+
 @Component({
   async asyncData({ $content, params}: {$content: any, params: any }) {
     const blog = await $content('blog', params.slug).fetch()
@@ -94,6 +96,7 @@ import {
 export default class BlogDetail extends Vue {
 
   mounted() {
+
     if (!process.browser) return
     this.$nextTick(() => {
       setTimeout(this.moveToHash, 200)
@@ -116,6 +119,23 @@ h2 {
   color: #494949;/*文字色*/
   background: rgb(245, 250, 245);/*背景色*/
   border-left: solid 5px lightgreen;/*左線（実線 太さ 色）*/
+}
+
+.v-application code {
+  all: unset
+}
+
+.remark-code-title {
+    background: #d9d7e0;
+    border-radius: 0px 0px 4px 4px;
+    color: #3a3a3a;
+    font-size: 0.75rem;
+    letter-spacing: 0.075em;
+    line-height: 1;
+    padding: 0.25rem 0.5rem;
+    position: absolute;
+    left: 1rem;
+    margin:0 0 0 auto;
 }
 
 </style>

@@ -33,6 +33,10 @@ export default {
         type: 'image/x-icon',
         href: `${envfile.BASE_URL}favicon.ico`,
       },
+      {
+        rel: 'stylesheet',
+        href: 'https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css'
+      },
     ],
   },
 
@@ -87,6 +91,16 @@ export default {
 
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {
+    markdown: {
+      remarkPlugins: [
+        'remark-math',
+        'remark-emoji',
+        'remark-code-titles',
+      ],
+      rehypePlugins: [
+        'rehype-katex',
+      ],
+    }
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
