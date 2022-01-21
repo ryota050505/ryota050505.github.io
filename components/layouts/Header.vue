@@ -3,6 +3,7 @@
     app
     color="black"
     flat
+    hide-on-scroll
   >
     <v-container class="py-0 fill-height">
 

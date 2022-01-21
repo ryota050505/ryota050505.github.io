@@ -1,10 +1,6 @@
 <template>
   <v-row>
     <v-col
-      v-if="$vuetify.breakpoint.mobile"
-      cols="1"
-    />
-    <v-col
       v-if="!$vuetify.breakpoint.mobile"
       cols="2"
     >
@@ -79,10 +75,10 @@
             <v-col
               v-for="(blog, i) in blogs"
               :key="'col-' + i"
-              cols="12"
-              sm="12"
+              cols="6"
+              sm="6"
               md="4"
-              lg="4"
+              lg="3"
             >
               <v-lazy
                 :options="{
@@ -111,11 +107,13 @@
                     <v-img
                       :src="require(`@/assets/img/${blog.imgsrc ? blog.imgsrc : 'nuxtjs_vuetify.png'}`)"
                       :aspect-ratio="16/10"
+                      contain
                     >
                       <v-btn
                         style="text-transform:none;"
                         depressed
                         color="orange accent-1"
+                        class="text-subtitle"
                       >
                         {{ blog.category }}
                       </v-btn>
@@ -124,6 +122,7 @@
                     />
                     <v-card-title
                       height="100%"
+                      class="text-body-1"
                       v-text="blog.title"
                     />
                     <v-fade-transition>
@@ -147,6 +146,7 @@
       </v-sheet>
     </v-col>
     <v-col
+      v-if="!$vuetify.breakpoint.mobile"
       cols="1"
     />
   </v-row>
