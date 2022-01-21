@@ -23,7 +23,7 @@
                 v-bind="attrs"
                 width="100%"
                 v-on="{ ...tooltip, ...menu }"
-                v-text="getCategoryButtonText"
+                v-text="CategoryButtonText"
               />
             </template>
             <span>please choose category</span>
@@ -42,11 +42,11 @@
           <v-list-item
             v-for="(item, i) in categories"
             :key="i"
-            @click="searchByCategory(item)"
+            @click="searchByCategory(item.category)"
           >
             <v-list-item-title
               class="text-center"
-              v-text="item"
+              v-text="item.category + '(' + item.count + ')'"
             />
           </v-list-item>
         </v-list>
@@ -60,7 +60,7 @@
           <v-row
           >
             <v-col
-              v-if="getBlogs.length === 0"
+              v-if="blogs.length === 0"
               cols="12"
               justify="center"
               align="center"
@@ -77,7 +77,7 @@
             </v-col>
 
             <v-col
-              v-for="(blog, i) in getBlogs"
+              v-for="(blog, i) in blogs"
               :key="'col-' + i"
               cols="12"
               sm="12"
@@ -85,7 +85,6 @@
               lg="4"
             >
               <v-lazy
-                v-model="lazyIsActive"
                 :options="{
                   threshold: 1.0
                 }"
@@ -103,35 +102,30 @@
                     color="white"
                     height="100%"
                     width="100%"
-                    :shaped="hover"
                     :ripple="{ center: true }"
                     :to="blog.path"
                   >
+                    <v-responsive
+                      :aspect-ratio="1"
+                    >
                     <v-img
-                      :src="require(`@/assets/img/${blog.imgsrc}`)"
-                      height="214px" style="max-height: 214px"
-                    />
+                      :src="require(`@/assets/img/${blog.imgsrc ? blog.imgsrc : 'nuxtjs_vuetify.png'}`)"
+                      :aspect-ratio="16/10"
+                    >
+                      <v-btn
+                        style="text-transform:none;"
+                        depressed
+                        color="orange accent-1"
+                      >
+                        {{ blog.category }}
+                      </v-btn>
+                    </v-img>
                     <v-divider
                     />
-                    <v-spacer/>
                     <v-card-title
+                      height="100%"
                       v-text="blog.title"
                     />
-                    <v-spacer/>
-                    <v-card-text
-                      class="text-center"
-                    >
-                      <p>{{ blog.description }}</p>
-                    </v-card-text>
-                    <v-spacer/>
-                    <v-card-text
-                      class="text-right"
-                      height="100%"
-                    >
-                      <time :datetime="blog.createdAt" height="100%">
-                        {{ $dateFns.format(new Date(blog.createdAt), 'yyyy/MM/dd') }}
-                      </time>
-                    </v-card-text>
                     <v-fade-transition>
                       <v-overlay
                         v-if="hover"
@@ -143,6 +137,7 @@
                         </v-btn>
                       </v-overlay>
                     </v-fade-transition>
+                    </v-responsive>
                   </v-card>
                 </v-hover>
               </v-lazy>
@@ -152,11 +147,6 @@
       </v-sheet>
     </v-col>
     <v-col
-      xs="1"
-      sm="1"
-      md="1"
-      lg="1"
-      xl="1"
       cols="1"
     />
   </v-row>
@@ -172,17 +162,56 @@ import {
   LocalHeader,
 } from '~/types/LocalHeader'
 @Component({
+  async asyncData({ $content, route }: { $content: any, route: any }) {
+    const { q, category } = route.query
+
+    let query = $content(
+        'blog',
+        { deep: true }
+      )
+      .sortBy('createdAt', 'desc')
+
+    if (q) query = query.search(q)
+    if (category) query = query.where({ category })
+
+    const blogs = await query.fetch()
+
+    let categories = await $content(
+        'blog',
+        { deep: true }
+      )
+      .only(['category'])
+      .fetch()
+      .then((res: any) => {
+        return  [...new Set(res.map((r: any) => r.category))]
+      })
+
+    categories = await Promise.all(categories.map((c: string) => $content('blog')
+      .only(['slug'])
+      .where({ category: c })
+      .fetch()
+      .then((res: any) => ({
+        category: c,
+        count: res.length,
+      }))
+    ))
+
+    return {
+      q,
+      category,
+      blogs,
+      categories,
+    }
+  },
   watchQuery: [
     'q',
-    'category'
+    'category',
+    'page',
   ],
 })
 export default class BlogsPage extends Vue {
 
-  private blogs!: Object[]
-  private categories!: string[]
   private categoryButtonText = "CATEGORY"
-  private lazyIsActive = false
 
   head(): LocalHeader {
     return {
@@ -190,34 +219,16 @@ export default class BlogsPage extends Vue {
     }
   }
 
-  async asyncData({ $content, route }: { $content: any, route: any}) {
-
-    let query = $content('blog', { deep: true }).sortBy('createdAt', 'desc')
-
-    const q: string = route.query.q
-    const category: string = route.query.category
-
-    if (q) query = query.search(q)
-    if (category) query = query.where({ category })
-
-    const blogs = await query.fetch()
-    let categories = await $content('blog', { deep: true }).only(['category']).fetch()
-    categories = Array.from(
-      new Map(categories.map((category: any) => [category.category, category.category])).values(),
-    )
-    return { q, category, blogs, categories }
-  }
-
-  get getBlogs() {
-    return this.blogs
-  }
-
-  get getCategoryButtonText() {
+  get CategoryButtonText() {
     return this.categoryButtonText
   }
 
+  set CategoryButtonText(newVal: string) {
+    this.categoryButtonText = newVal
+  }
+
   private searchByCategory(category: string) {
-    this.categoryButtonText = category
+    this.CategoryButtonText = category
     this.$router.push({
       query: {
         q: this.$route.query.q,
@@ -227,7 +238,7 @@ export default class BlogsPage extends Vue {
   }
 
   private clearCategoryQuery() {
-    this.categoryButtonText = 'CATEGORY'
+    this.CategoryButtonText = 'CATEGORY'
     this.$router.push({
       query: {
         q: this.$route.query.q,

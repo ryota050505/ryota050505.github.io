@@ -2,19 +2,55 @@
   <v-container
     class="d-flex justify-space-between mb-6"
   >
-      <NuxtLink
+      <MaterialsBottomTrasitionToolTip
         v-if="prev"
         :to="{ name: 'blog-slug', params: { slug: prev.slug } }"
+        :is-icon="true"
       >
-        {{ prev.title }}
-      </NuxtLink>
+        <template
+          #top
+        >
+          <v-icon
+            large
+          >
+            mdi-arrow-left-bold-circle-outline
+          </v-icon>
+        </template>
+        <template
+          #tooltip
+        >
+          <div class="text-center">前の記事を見る</div>
+          <v-divider
+            color="white"
+          />
+          <div class="text-center">{{ prev.title }}</div>
+        </template>
+      </MaterialsBottomTrasitionToolTip>
       <span v-else>&nbsp;</span>
-      <NuxtLink
+      <MaterialsBottomTrasitionToolTip
         v-if="next"
         :to="{ name: 'blog-slug', params: { slug: next.slug } }"
+        :is-icon="true"
       >
-        {{ next.title }}
-      </NuxtLink>
+        <template
+          #top
+        >
+          <v-icon
+            large
+          >
+            mdi-arrow-right-bold-circle-outline
+          </v-icon>
+        </template>
+        <template
+          #tooltip
+        >
+          <div class="text-center">次の記事を見る</div>
+          <v-divider
+            color="white"
+          />
+          <div class="text-center">{{ next.title }}</div>
+        </template>
+      </MaterialsBottomTrasitionToolTip>
       <span v-else>&nbsp;</span>
   </v-container>
 </template>

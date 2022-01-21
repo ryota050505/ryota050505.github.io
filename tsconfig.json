@@ -15,7 +15,7 @@
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": ["@nuxt/types", "@nuxtjs/axios", "@nuxt/content", "@types/node"]
+    "types": ["@nuxt/types", "@nuxtjs/axios", "@nuxt/content", "@types/node", "vue-scrollto"]
   },
   "exclude": ["node_modules", ".nuxt", "dist"]
 }
