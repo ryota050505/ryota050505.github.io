@@ -72,7 +72,7 @@
                 type="info"
                 elevation="2"
               >
-                検索結果が存在しません
+                記事がありません
               </v-alert>
             </v-col>
 

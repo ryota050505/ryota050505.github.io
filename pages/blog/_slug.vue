@@ -23,7 +23,6 @@
             v-for="link in blog.toc"
             :key="link.id"
             v-scroll-to="`#${link.id}`"
-            :class="{ 'py-2': link.depth === 2, 'ml-2': link.depth === 3 }"
             link
           >
             <v-list-item-content>
@@ -115,8 +114,8 @@ export default class BlogDetail extends Vue {
 h2 {
   padding: 0.5em;/*文字周りの余白*/
   color: #494949;/*文字色*/
-  background: #fffaf4;/*背景色*/
-  border-left: solid 5px #ffaf58;/*左線（実線 太さ 色）*/
+  background: rgb(245, 250, 245);/*背景色*/
+  border-left: solid 5px lightgreen;/*左線（実線 太さ 色）*/
 }
 
 </style>
