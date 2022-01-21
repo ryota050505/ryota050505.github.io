@@ -4,9 +4,7 @@
       v-if="!$vuetify.breakpoint.mobile"
       cols="2"
     >
-
         <v-list color="transparent">
-
           <v-list-item
             v-for="link in blog.toc"
             :key="link.id"
@@ -68,6 +66,8 @@ import {
   Vue,
 } from 'nuxt-property-decorator'
 
+import { LocalHeader } from '~/types/LocalHeader'
+
 @Component({
   async asyncData({ $content, params}: {$content: any, params: any }) {
     const blog = await $content('blog', params.slug).fetch()
@@ -83,9 +83,18 @@ import {
       prev,
       next,
     }
-  }
+  },
 })
 export default class BlogDetail extends Vue {
+
+  private blog?: any
+
+  head(): LocalHeader {
+    return {
+      title: this.blog.title,
+      description: this.blog.description,
+    }
+  }
 
   mounted() {
 
@@ -107,7 +116,7 @@ export default class BlogDetail extends Vue {
 <style>
 
 h2 {
-  margin: 0 0 0.5em 0;
+  margin: 2em 0 0.5em 0;
   border-bottom: solid 3px black;
   color: #494949;
   font-weight: bolder;
@@ -115,25 +124,76 @@ h2 {
 
 h3 {
   padding: 0.5em;
+  margin: 2em 0 0.5em 0;
   color: #494949;
   background: rgb(245, 250, 245);
   border-left: solid 5px lightgreen;
 }
 
 .v-application code {
-  all: unset
+  all: unset;
+}
+
+.v-application p code {
+  padding: 0.1em 0.5em;
+  background-color: #e6dedc !important;
+  border-radius: 0.3em;
+  color: rgb(131, 69, 40) !important;
+}
+
+.v-application div pre code {
+  background-color: transparent !important;
 }
 
 .remark-code-title {
-    background: #d9d7e0;
-    border-radius: 0px 0px 4px 4px;
-    color: #3a3a3a;
-    font-size: 0.75rem;
-    letter-spacing: 0.075em;
-    line-height: 1;
-    padding: 0.25rem 0.5rem;
-    position: absolute;
-    margin:0 0 0 auto;
+  background: #d9d7e0;
+  border-radius: 0px 0px 4px 4px;
+  color: #3a3a3a;
+  font-size: 0.75rem;
+  letter-spacing: 0.075em;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  position: absolute;
+  margin:0 0 0 auto;
+}
+
+blockquote {
+  position: relative;
+  padding: 30px 15px 8px 15px;
+  margin: 0 0 30px 0;
+  box-sizing: border-box;
+  background: #efefef;
+  color: rgb(134, 133, 133);
+  border-left: 4px solid #9dd4ff;
+}
+
+blockquote:before{
+  display: inline-block;
+  position: absolute;
+  top: 5px;
+  left: 3px;
+  content: "“";
+  font-family: sans-serif;
+  color: #cfcfcf;
+  font-size: 90px;
+  line-height: 1;
+}
+
+blockquote p {
+  padding: 0;
+  margin: 10px 0;
+  line-height: 1.7;
+}
+
+.v-application blockquote p code {
+  color: rgb(212, 150, 122) !important;
+}
+
+blockquote cite {
+  display: block;
+  text-align: right;
+  color: #888888;
+  font-size: 0.9em;
 }
 
 </style>

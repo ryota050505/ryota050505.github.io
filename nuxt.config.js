@@ -78,7 +78,7 @@ export default {
     [
       'vue-scrollto/nuxt',
       {
-        offset: -70
+        offset: -10
       }
     ]
   ],
@@ -92,6 +92,9 @@ export default {
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {
     markdown: {
+      prism: {
+        theme: 'prism-themes/themes/prism-vsc-dark-plus.css'
+      },
       remarkPlugins: [
         'remark-math',
         'remark-emoji',
@@ -150,11 +153,11 @@ export default {
   },
 
   generate: {
-    async routes() {
-      const { $content } = require('@nuxt/content')
-      const files = await $content().only(['path']).fetch()
+    // async routes() {
+    //   const { $content } = require('@nuxt/content')
+    //   const files = await $content().only(['path']).fetch()
 
-      return files.map(file => file.path === '/index' ? '/' : file.path)
-    }
+    //   return files.map(file => file.path === '/index' ? '/' : file.path)
+    // }
   }
 }
