@@ -119,7 +119,7 @@ export default class BlogDetail extends Vue {
 <style>
 
 h2 {
-  margin: 2em 0 0.5em 0;
+  margin: 2em 0 1.2em 0;
   border-bottom: solid 3px black;
   color: #494949;
   font-weight: bolder;
