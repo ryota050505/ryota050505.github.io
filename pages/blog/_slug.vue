@@ -3,7 +3,9 @@
     <v-col
       v-if="!$vuetify.breakpoint.mobile"
       cols="2"
+      class="toc-wrapper"
     >
+      <div class="p-toc-container">
         <v-list color="transparent">
           <v-list-item
             v-for="link in blog.toc"
@@ -17,6 +19,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-list>
+      </div>
     </v-col>
 
     <v-col>
@@ -116,7 +119,7 @@ export default class BlogDetail extends Vue {
 <style>
 
 h2 {
-  margin: 2em 0 0.5em 0;
+  margin: 2em 0 1.2em 0;
   border-bottom: solid 3px black;
   color: #494949;
   font-weight: bolder;
@@ -196,4 +199,23 @@ blockquote cite {
   font-size: 0.9em;
 }
 
+.p-toc-container {
+  width: 25%;
+  max-width: 100px;
+  min-width: 250px;
+  height: 100%;
+  max-height: 100vh;
+  overflow: scroll;
+  font-size: .9rem;
+  position: sticky;
+  top: 60px;
+}
+
+.toc-wrapper {
+  position: sticky;
+  top: 60px;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+}
 </style>

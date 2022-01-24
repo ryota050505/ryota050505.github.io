@@ -1,0 +1,11 @@
+<template>
+  <v-alert
+    border="right"
+    text
+    colored-border
+    type="info"
+    elevation="2"
+  >
+    記事がありません
+  </v-alert>
+</template>
