@@ -4,49 +4,18 @@
       v-if="!$vuetify.breakpoint.mobile"
       cols="2"
     >
-      <v-menu transition="scroll-y-transition">
-        <template
-          #activator="{ on: menu, attrs }"
-        >
-          <v-tooltip
-            bottom
-          >
-            <template
-              #activator="{ on: tooltip }"
-            >
-              <v-btn
-                style="text-transform:none"
-                v-bind="attrs"
-                width="100%"
-                v-on="{ ...tooltip, ...menu }"
-                v-text="CategoryButtonText"
-              />
-            </template>
-            <span>please choose category</span>
-          </v-tooltip>
-        </template>
-        <v-list>
-          <v-list-item
-            link
-            @click="clearCategoryQuery()"
-          >
-            <v-list-item-title
-              class="text-center"
-              v-text="'CATEGORY'"
-            />
-          </v-list-item>
-          <v-list-item
-            v-for="(item, i) in categories"
-            :key="i"
-            @click="searchByCategory(item.category)"
-          >
-            <v-list-item-title
-              class="text-center"
-              v-text="item.category + '(' + item.count + ')'"
-            />
-          </v-list-item>
-        </v-list>
-      </v-menu>
+      <PagesBlogsSideTransition
+        :display-text="categoryButtonText"
+        :tool-tip-text="'please choose category'"
+        :items="categories"
+        :icon="CATEGORY_ICON"
+      />
+      <PagesBlogsSideTransition
+        :display-text="tagButtonText"
+        :tool-tip-text="'please choose tag'"
+        :items="tags"
+        :icon="TAG_ICON"
+      />
     </v-col>
 
     <v-col>
@@ -61,15 +30,7 @@
               justify="center"
               align="center"
             >
-              <v-alert
-                border="right"
-                text
-                colored-border
-                type="info"
-                elevation="2"
-              >
-                記事がありません
-              </v-alert>
+              <PagesBlogsNotExist/>
             </v-col>
 
             <v-col
@@ -80,66 +41,9 @@
               md="4"
               lg="3"
             >
-              <v-lazy
-                :options="{
-                  threshold: 1.0
-                }"
-                transition="fade-transition"
-                height="100%"
-              >
-                <v-hover
-                  v-slot="{ hover }"
-                >
-                  <v-card
-                    nuxt
-                    light
-                    hover
-                    class="rounded-card d-flex flex-column"
-                    color="white"
-                    height="100%"
-                    width="100%"
-                    :ripple="{ center: true }"
-                    :to="blog.path"
-                  >
-                    <v-responsive
-                      :aspect-ratio="1"
-                    >
-                    <v-img
-                      :src="require(`@/assets/img/${blog.imgsrc ? blog.imgsrc : 'nuxtjs_vuetify.png'}`)"
-                      :aspect-ratio="16/10"
-                      contain
-                    >
-                      <v-btn
-                        style="text-transform:none;"
-                        depressed
-                        color="orange accent-1"
-                        class="text-subtitle"
-                      >
-                        {{ blog.category }}
-                      </v-btn>
-                    </v-img>
-                    <v-divider
-                    />
-                    <v-card-title
-                      height="100%"
-                      class="text-body-1"
-                      v-text="blog.title"
-                    />
-                    <v-fade-transition>
-                      <v-overlay
-                        v-if="hover"
-                        absolute
-                        :z-index="0"
-                      >
-                        <v-btn>
-                          See more info
-                        </v-btn>
-                      </v-overlay>
-                    </v-fade-transition>
-                    </v-responsive>
-                  </v-card>
-                </v-hover>
-              </v-lazy>
+              <PagesBlogsContent
+                :blog="blog"
+              />
             </v-col>
           </v-row>
         </v-container>
@@ -161,9 +65,65 @@ import {
 import {
   LocalHeader,
 } from '~/types/LocalHeader'
+
+const DEFAULT_CATEGORY_BUTTON_TEXT = "CATEGORY"
+const CATEGORY_ICON = 'mdi-folder'
+const DEFAULT_TAG_BUTTON_TEXT = "TAG"
+const TAG_ICON = 'mdi-tag'
+
+type Query = {
+  q?: string,
+  category?: string,
+  tag?: string,
+}
+
+type Conditions = {
+  category?: string,
+  tags?: object,
+}
+
+type Search = (arg0: string) => void
+
+type TemplateConditions = {
+  text: string,
+  count: number,
+  func: Search,
+}
+
 @Component({
-  async asyncData({ $content, route }: { $content: any, route: any }) {
-    const { q, category } = route.query
+  async asyncData({ $content, route, redirect }: { $content: any, route: any, redirect: any }) {
+    const {
+      q,
+      category,
+      tag
+    } = route.query
+
+    const categoryButtonText = category || DEFAULT_CATEGORY_BUTTON_TEXT
+    const tagButtonText = tag || DEFAULT_TAG_BUTTON_TEXT
+
+    const searchByCategory: Search = (category: string) => {
+      const query: Query = {
+        q: route.query.q,
+        category,
+        tag: route.query.tag,
+      }
+      if ( category === DEFAULT_CATEGORY_BUTTON_TEXT )delete query.category
+      redirect({
+        query,
+      })
+    }
+
+    const searchByTag: Search = (tag: string) => {
+      const query: Query = {
+        q: route.query.q,
+        category: route.query.category,
+        tag,
+      }
+      if ( tag === DEFAULT_TAG_BUTTON_TEXT )delete query.tag
+      redirect({
+        query,
+      })
+    }
 
     let query = $content(
         'blog',
@@ -171,12 +131,18 @@ import {
       )
       .sortBy('createdAt', 'desc')
 
+    // 全文検索
     if (q) query = query.search(q)
-    if (category) query = query.where({ category })
+
+    // and条件で検索
+    const conditions: Conditions = {}
+    if (category) conditions.category = category
+    if (tag) conditions.tags = {$contains: tag}
+    if (Object.keys(conditions).length) query = query.where(conditions)
 
     const blogs = await query.fetch()
 
-    let categories = await $content(
+    const categoriesStringArray = await $content(
         'blog',
         { deep: true }
       )
@@ -186,64 +152,83 @@ import {
         return  [...new Set(res.map((r: any) => r.category))]
       })
 
-    categories = await Promise.all(categories.map((c: string) => $content('blog')
+    const categories: TemplateConditions[] = await Promise.all(categoriesStringArray.map((c: string) => $content('blog')
       .only(['slug'])
       .where({ category: c })
       .fetch()
       .then((res: any) => ({
-        category: c,
+        text: c,
         count: res.length,
+        func: searchByCategory,
       }))
     ))
+
+    categories.unshift({
+      text: DEFAULT_CATEGORY_BUTTON_TEXT,
+      count: 0,
+      func: searchByCategory,
+    })
+
+    const tagsStringArray = await $content(
+      'blog',
+      { deep: true },
+    )
+    .only(['tags'])
+    .fetch()
+    .then((res: any) => {
+      return [
+        ...new Set(
+          res.map((r: any) => {
+            return r.tags
+          }).flat()
+        )
+      ].flat()
+    })
+
+    const tags: TemplateConditions[] = await Promise.all(tagsStringArray.map((t: string) => $content('blog')
+      .only(['slug'])
+      .where({ tags: { $contains: t }})
+      .fetch()
+      .then((res: any) => ({
+        text: t,
+        count: res.length,
+        func: searchByTag,
+      }))
+    ))
+
+    tags.unshift({
+      text: DEFAULT_TAG_BUTTON_TEXT,
+      count: 0,
+      func: searchByTag,
+    })
 
     return {
       q,
       category,
+      tag,
       blogs,
       categories,
+      tags,
+      categoryButtonText,
+      tagButtonText,
     }
   },
   watchQuery: [
     'q',
     'category',
+    'tag',
     'page',
   ],
 })
 export default class BlogsPage extends Vue {
 
-  private categoryButtonText = "CATEGORY"
+  private TAG_ICON = TAG_ICON
+  private CATEGORY_ICON = CATEGORY_ICON
 
   head(): LocalHeader {
     return {
       title: 'Blogs',
     }
-  }
-
-  get CategoryButtonText() {
-    return this.categoryButtonText
-  }
-
-  set CategoryButtonText(newVal: string) {
-    this.categoryButtonText = newVal
-  }
-
-  private searchByCategory(category: string) {
-    this.CategoryButtonText = category
-    this.$router.push({
-      query: {
-        q: this.$route.query.q,
-        category,
-      }
-    })
-  }
-
-  private clearCategoryQuery() {
-    this.CategoryButtonText = 'CATEGORY'
-    this.$router.push({
-      query: {
-        q: this.$route.query.q,
-      }
-    })
   }
 }
 </script>
