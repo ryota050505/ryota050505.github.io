@@ -1,6 +1,7 @@
 <template>
   <v-tooltip
-    top
+    :top="!isBottom"
+    :bottom="isBottom"
   >
     <template
       #activator="{ on: tooltip }"
@@ -30,11 +31,14 @@ import {
 } from 'nuxt-property-decorator'
 
 @Component
-export default class BottomTransitionToolTip extends Vue {
+export default class TransitionToolTip extends Vue {
   @Prop({ type: Object , required: true })
   private to!:string | object
 
   @Prop({ type: Boolean, default: false })
   private isIcon!:boolean
+
+  @Prop({ type: Boolean, default: false })
+  private isBottom!: boolean
 }
 </script>
