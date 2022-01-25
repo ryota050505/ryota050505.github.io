@@ -63,6 +63,12 @@ import {
 } from 'nuxt-property-decorator'
 
 import {
+  Conditions,
+  Query,
+  Search,
+  TemplateConditions,
+} from '~/types/Content'
+import {
   LocalHeader,
 } from '~/types/LocalHeader'
 
@@ -71,31 +77,12 @@ const CATEGORY_ICON = 'mdi-folder'
 const DEFAULT_TAG_BUTTON_TEXT = "TAG"
 const TAG_ICON = 'mdi-tag'
 
-type Query = {
-  q?: string,
-  category?: string,
-  tag?: string,
-}
-
-type Conditions = {
-  category?: string,
-  tags?: object,
-}
-
-type Search = (arg0: string) => void
-
-type TemplateConditions = {
-  text: string,
-  count: number,
-  func: Search,
-}
-
 @Component({
   async asyncData({ $content, route, redirect }: { $content: any, route: any, redirect: any }) {
     const {
       q,
       category,
-      tag
+      tag,
     } = route.query
 
     const categoryButtonText = category || DEFAULT_CATEGORY_BUTTON_TEXT
@@ -170,20 +157,20 @@ type TemplateConditions = {
     })
 
     const tagsStringArray = await $content(
-      'blog',
-      { deep: true },
-    )
-    .only(['tags'])
-    .fetch()
-    .then((res: any) => {
-      return [
-        ...new Set(
-          res.map((r: any) => {
-            return r.tags
-          }).flat()
-        )
-      ].flat()
-    })
+        'blog',
+        { deep: true },
+      )
+      .only(['tags'])
+      .fetch()
+      .then((res: any) => {
+        return [
+          ...new Set(
+            res.map((r: any) => {
+              return r.tags
+            }).flat()
+          )
+        ].flat()
+      })
 
     const tags: TemplateConditions[] = await Promise.all(tagsStringArray.map((t: string) => $content('blog')
       .only(['slug'])
