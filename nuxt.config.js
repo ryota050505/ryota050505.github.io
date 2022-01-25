@@ -24,8 +24,24 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'とある大学院生の備忘録的なポートフォリオ的なサイトです。'
+      },
       { name: 'format-detection', content: 'telephone=no' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'takoyaki' },
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:url', property: 'og:url', content: 'https://ryota050505.github.io/takoyaki' },
+      { hid: 'og:title', property: 'og:title', content: 'takoyaki' },
+      {
+        hid: 'og:description',
+        name: 'og:description',
+        content: 'とある大学院生の備忘録的なポートフォリオ的なサイトです。'
+      },
+      { hid: 'og:image', property: 'og:image', content: `${envfile.BASE_URL}takoyaki.png` },
+      { hid: 'apple-mobile-web-app-title', property: 'apple-mobile-web-app-title', content: 'takoyaki' },
+      { hid: 'twitter:card', content: 'summary_large_image' },
     ],
     link: [
       {
@@ -33,6 +49,10 @@ export default {
         type: 'image/x-icon',
         href: `${envfile.BASE_URL}favicon.ico`,
       },
+      { rel: 'apple-touch-icon', sizes: '180x180', href: `${envfile.BASE_URL}apple-touch-icon.png` },
+      { rel: 'icon', type: 'image/png', sizes: '16x16', href: `${envfile.BASE_URL}icon-16x16.png` },
+      { rel: 'icon', type: 'image/png', sizes: '32x32', href: `${envfile.BASE_URL}icon-32x32.png` },
+      { rel: 'manifest', href: `${envfile.BASE_URL}manifest.json` },
       {
         rel: 'stylesheet',
         href: 'https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css'
