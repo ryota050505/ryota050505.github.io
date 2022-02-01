@@ -7,15 +7,16 @@
     <v-col>
       <v-sheet min-height="70vh" rounded="lg">
         <v-container>
-          <div class="text-center text-h3 py-5">まい すきる</div>
           <v-row>
             <v-col
               v-for="(skill, i) in skills"
               :key="'col-' + i"
               cols="6"
               sm="6"
-              mx="4"
-              lg="3"
+              mx="6"
+              md="4"
+              lg="4"
+              xl="3"
             >
               <v-lazy
                 :options="{
@@ -42,7 +43,8 @@
                       class="text-center"
                       half-increments
                       readonly
-                      :x-small="$vuetify.breakpoint.mobile"
+                      :small="isSm()"
+                      :x-small="isXs()"
                     />
                     <v-spacer/>
                   <v-card-actions>
@@ -51,7 +53,8 @@
                       @click="skill.reveal = true"
                     >
                       <v-icon
-                        :x-small="$vuetify.breakpoint.mobile"
+                        :small="isSm()"
+                        :x-small="isXs()"
                       >
                         mdi-cursor-default-click
                       </v-icon>
@@ -67,7 +70,7 @@
                     >
                       <v-card-text class="pb-0">
                         <p
-                          :class="$vuetify.breakpoint.mobile ? 'text-subtitle-1' :'text-h4 ' + 'text--primary'"
+                          :class="($vuetify.breakpoint.mobile ? 'text-subtitle-1' : 'text-h4') + ' text--primary'"
                         >
                           {{ skill.language }}
                         </p>
@@ -82,7 +85,8 @@
                           @click="skill.reveal = false"
                         >
                           <v-icon
-                            :x-small="$vuetify.breakpoint.mobile"
+                            :small="isSm()"
+                            :x-small="isXs()"
                           >
                             mdi-close
                           </v-icon>
@@ -200,6 +204,26 @@ export default class SkillPage extends Vue {
     return {
       title: 'Skill',
     }
+  }
+
+  private isXs() {
+    return this.$vuetify.breakpoint.name === 'xs'
+  }
+
+  private isSm() {
+    return this.$vuetify.breakpoint.name === 'sm'
+  }
+
+  private isMd() {
+    return this.$vuetify.breakpoint.name === 'md'
+  }
+
+  private isLg() {
+    return this.$vuetify.breakpoint.name === 'lg'
+  }
+
+  private isXl() {
+    return this.$vuetify.breakpoint.name === 'xl'
   }
 }
 </script>
