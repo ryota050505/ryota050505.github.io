@@ -1,12 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
-const environment = process.env.NODE_ENV
-const envfile = require(`./env/${environment}.ts`)
-
 export default {
-  router: {
-    base: envfile.BASE_URL,
-  },
 
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -39,7 +33,7 @@ export default {
         name: 'og:description',
         content: 'とある大学院生の備忘録的なポートフォリオ的なサイトです。'
       },
-      { hid: 'og:image', property: 'og:image', content: `${envfile.BASE_URL}takoyaki.png` },
+      { hid: 'og:image', property: 'og:image', content: `/takoyaki.png` },
       { hid: 'apple-mobile-web-app-title', property: 'apple-mobile-web-app-title', content: 'takoyaki' },
       { hid: 'twitter:card', content: 'summary_large_image' },
     ],
@@ -47,12 +41,12 @@ export default {
       {
         rel: 'icon',
         type: 'image/x-icon',
-        href: `${envfile.BASE_URL}favicon.ico`,
+        href: `/favicon.ico`,
       },
-      { rel: 'apple-touch-icon', sizes: '180x180', href: `${envfile.BASE_URL}apple-touch-icon.png` },
-      { rel: 'icon', type: 'image/png', sizes: '16x16', href: `${envfile.BASE_URL}icon-16x16.png` },
-      { rel: 'icon', type: 'image/png', sizes: '32x32', href: `${envfile.BASE_URL}icon-32x32.png` },
-      { rel: 'manifest', href: `${envfile.BASE_URL}manifest.json` },
+      { rel: 'apple-touch-icon', sizes: '180x180', href: `/apple-touch-icon.png` },
+      { rel: 'icon', type: 'image/png', sizes: '16x16', href: `/icon-16x16.png` },
+      { rel: 'icon', type: 'image/png', sizes: '32x32', href: `/icon-32x32.png` },
+      { rel: 'manifest', href: `/manifest.json` },
       {
         rel: 'stylesheet',
         href: 'https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css'
