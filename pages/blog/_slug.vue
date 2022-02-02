@@ -22,25 +22,34 @@
       </div>
     </v-col>
 
-    <v-col>
+    <v-col
+      :cols="$vuetify.breakpoint.mobile? 12 : 8"
+    >
       <v-sheet
         rounded="lg"
         light
       >
         <v-container>
           <article>
-            <div class="text-right">
-              <v-icon small>mdi-update</v-icon>
-              <span class="font-weight-light text-caption">{{ $dateFns.format(new Date(blog.updatedAt), 'yyyy.MM.dd') }}</span>
-            </div>
-            <h1
-              class="text-center my-3"
-            >
-              {{ blog.title }}
-            </h1>
-            <v-divider
-              class="mb-8"
+            <v-img
+              :src="require(`@/assets/img/${blog.imgsrc ? blog.imgsrc : 'nuxtjs_vuetify.png'}`)"
+              contain
+              style="opacity: 0.7;"
+              :aspect-ratio="16/9"
+              height="214px"
+              max-height="214px"
             />
+            <div class="title">
+              <div class="text-right">
+                <v-icon small>mdi-update</v-icon>
+                <span class="font-weight-light text-caption">{{ $dateFns.format(new Date(blog.updatedAt), 'yyyy.MM.dd') }}</span>
+              </div>
+              <h1
+                class="text-center"
+              >
+                {{ blog.title }}
+              </h1>
+            </div>
             <NuxtContent
               :class="
                 'markdown-body ' +
@@ -116,11 +125,13 @@ export default class BlogDetail extends Vue {
 }
 </script>
 
-<style>
+<style lang="scss">
+
+
 
 h2 {
   margin: 2em 0 1.2em 0;
-  border-bottom: solid 3px black;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.15);
   color: #494949;
   font-weight: bolder;
 }
@@ -130,7 +141,13 @@ h3 {
   margin: 2em 0 0.5em 0;
   color: #494949;
   background: rgb(245, 250, 245);
-  border-left: solid 5px lightgreen;
+  border-left: solid 5px rgb(238, 213, 144);
+}
+
+p {
+  @include sp {
+    font-size: 0.9em;
+  }
 }
 
 .v-application code {

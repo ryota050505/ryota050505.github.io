@@ -2,3 +2,25 @@
 //
 // The variables you want to modify
 // $font-size-root: 20px;
+
+$sp: 480px;
+$tab: 768px;
+$lap: 1024px;
+
+@mixin sp {
+  @media screen and (max-width: ($sp)) {
+    @content;
+  }
+}
+@mixin tab {
+  @media screen and (max-width: ($tab)) {
+    @content;
+  }
+}
+
+@mixin lap {
+  @media screen and (max-width: ($lap)) {
+    @content;
+  }
+}
+

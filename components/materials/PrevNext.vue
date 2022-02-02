@@ -2,10 +2,11 @@
   <v-container
     class="d-flex justify-space-between mb-6"
   >
-      <MaterialsBottomTrasitionToolTip
+      <MaterialsTrasitionToolTip
         v-if="prev"
         :to="{ name: 'blog-slug', params: { slug: prev.slug } }"
         :is-icon="true"
+        :is-bottom="true"
       >
         <template
           #top
@@ -19,18 +20,19 @@
         <template
           #tooltip
         >
-          <div class="text-center">前の記事を見る</div>
+          <div class="text-center">前の記事</div>
           <v-divider
             color="white"
           />
           <div class="text-center">{{ prev.title }}</div>
         </template>
-      </MaterialsBottomTrasitionToolTip>
+      </MaterialsTrasitionToolTip>
       <span v-else>&nbsp;</span>
-      <MaterialsBottomTrasitionToolTip
+      <MaterialsTrasitionToolTip
         v-if="next"
         :to="{ name: 'blog-slug', params: { slug: next.slug } }"
         :is-icon="true"
+        :is-bottom="true"
       >
         <template
           #top
@@ -44,13 +46,13 @@
         <template
           #tooltip
         >
-          <div class="text-center">次の記事を見る</div>
+          <div class="text-center">次の記事</div>
           <v-divider
             color="white"
           />
           <div class="text-center">{{ next.title }}</div>
         </template>
-      </MaterialsBottomTrasitionToolTip>
+      </MaterialsTrasitionToolTip>
       <span v-else>&nbsp;</span>
   </v-container>
 </template>

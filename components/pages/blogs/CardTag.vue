@@ -1,24 +1,25 @@
 <template>
   <span
     :class="
-      'card-category ' +
+      'card-tag ' +
       ($vuetify.breakpoint.mobile? 'text-caption' : '')
     "
   >
     <v-icon
       x-small
     >
-      mdi-folder
+      mdi-tag
     </v-icon>
     <slot/>
   </span>
 </template>
 
 <style lang="scss" scoped>
-.card-category {
+.card-tag {
   display: inline-block;
   font-size: .8em;
-  background-color: rgba(250, 177, 67, 0.562);
+  text-transform: none;
+  background-color: white;
   border-radius: 5px;
   border: solid .1px rgba(0, 0, 0, 0.4);
   padding: 0 2px;

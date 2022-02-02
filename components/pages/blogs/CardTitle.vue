@@ -1,9 +1,13 @@
 <template>
   <v-card-title
     height="100%"
-    class="text-body-1"
+    :class="$vuetify.breakpoint.mobile? 'text-body-2' : 'text-body-1'"
   >
     <slot/>
   </v-card-title>
 </template>
 
+<style lang="scss">
+
+
+</style>

@@ -1,7 +1,7 @@
 <template>
   <v-img
     :src="require(`@/assets/img/${imgSrc}`)"
-    :aspect-ratio="16/10"
+    :aspect-ratio="16/9"
     contain
   >
     <slot/>

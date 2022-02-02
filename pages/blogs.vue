@@ -18,8 +18,10 @@
       />
     </v-col>
 
-    <v-col>
-      <v-sheet rounded="lg" light>
+    <v-col
+      :cols="$vuetify.breakpoint.mobile? 12 : 9"
+    >
+      <v-sheet rounded="lg">
         <v-container>
 
           <v-row
@@ -72,9 +74,9 @@ import {
   LocalHeader,
 } from '~/types/LocalHeader'
 
-const DEFAULT_CATEGORY_BUTTON_TEXT = "CATEGORY"
+const DEFAULT_CATEGORY_BUTTON_TEXT = 'CATEGORY'
 const CATEGORY_ICON = 'mdi-folder'
-const DEFAULT_TAG_BUTTON_TEXT = "TAG"
+const DEFAULT_TAG_BUTTON_TEXT = 'TAG'
 const TAG_ICON = 'mdi-tag'
 
 @Component({

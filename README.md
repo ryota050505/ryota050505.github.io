@@ -1,5 +1,5 @@
-# takoyaki
+# 色々詰め込んでいく予定のサイトです
 
 ## GitHub Pages
 
-[ここから飛べます](https://ryota050505.github.io/takoyaki/)
+[ここから飛べます](https://www.ordev.link/)

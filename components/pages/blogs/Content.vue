@@ -26,15 +26,21 @@
           <PagesBlogsCardImg
             :img-src="blog.imgsrc || 'nuxtjs_vuetify.png'"
           >
-            <PagesBlogsCardCategory>
-              {{ blog.category }}
-            </PagesBlogsCardCategory>
           </PagesBlogsCardImg>
           <v-divider
           />
           <PagesBlogsCardTitle>
             {{ blog.title }}
           </PagesBlogsCardTitle>
+          <PagesBlogsCardCategory>
+            {{ blog.category }}
+          </PagesBlogsCardCategory>
+          <PagesBlogsCardTag
+            v-for="(tag, i) in blog.tags"
+            :key="i"
+          >
+            {{ tag }}
+          </PagesBlogsCardTag>
           <MaterialsOverRayTransition
             :hover="hover"
           >
