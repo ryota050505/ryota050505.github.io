@@ -2,7 +2,7 @@
   <v-footer app :absolute="true">
     <span>
       &copy; {{ new Date().getFullYear() }}
-      りょーたの遊び場
+      りょーた
     </span>
   </v-footer>
 </template>
