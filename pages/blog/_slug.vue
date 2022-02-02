@@ -138,9 +138,8 @@ h2 {
 
 h3 {
   padding: 0.5em;
-  margin: 2em 0 0.5em 0;
+  margin: 2em 0 1.2em 0;
   color: #494949;
-  background: rgb(245, 250, 245);
   border-left: solid 5px rgb(238, 213, 144);
 }
 
