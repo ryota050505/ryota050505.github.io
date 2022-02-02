@@ -53,7 +53,7 @@
             <NuxtContent
               :class="
                 'markdown-body ' +
-                $vuetify.breakpoint.mobile ? 'mx-2' : 'mx-5'
+                $vuetify.breakpoint.mobile ? 'mx-1' : 'mx-5'
               "
               :document="blog"
             />
@@ -126,8 +126,6 @@ export default class BlogDetail extends Vue {
 </script>
 
 <style lang="scss">
-
-
 
 h2 {
   margin: 2em 0 1.2em 0;
