@@ -2,11 +2,13 @@
   <v-fade-transition>
     <v-overlay
       v-if="hover"
-      absolute
       :z-index="0"
+      absolute
+      color="black"
     >
       <div
         class="text-center"
+        style="font-weight: bold;"
       >
         <slot/>
       </div>
