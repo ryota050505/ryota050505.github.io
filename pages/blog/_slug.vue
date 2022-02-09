@@ -127,25 +127,33 @@ export default class BlogDetail extends Vue {
 
 <style lang="scss">
 
-h2 {
-  margin: 2em 0 1.2em 0;
-  border-bottom: solid 1px rgba(0, 0, 0, 0.15);
-  color: #494949;
-  font-weight: bolder;
-}
-
-h3 {
-  padding: 0.5em;
-  margin: 2em 0 1.2em 0;
-  color: #494949;
-  border-left: solid 5px rgb(238, 213, 144);
-}
-
-p {
-  @include sp {
-    font-size: 0.9em;
+article {
+  & h2 {
+    margin: 2em 0 1.2em 0;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.15);
+    color: #494949;
+    font-weight: bolder;
+  }
+  & h3 {
+    padding: 0.5em;
+    margin: 2em 0 1.2em 0;
+    color: #494949;
+    border-left: solid 5px rgb(238, 213, 144);
+  }
+  & p {
+    @include sp {
+      font-size: 0.9em;
+    }
+  }
+  & ul {
+    & li {
+      @include sp {
+        font-size: 0.9em;
+      }
+    }
   }
 }
+
 
 .v-application code {
   all: unset;
