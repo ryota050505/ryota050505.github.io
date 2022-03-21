@@ -2,7 +2,6 @@
   <v-footer
     app
     absolute
-    dark
     padless
   >
     <v-card
@@ -10,6 +9,7 @@
       tile
       class="text-center"
       width="100%"
+      color="base"
     >
       <v-card-text>
         <v-btn
@@ -32,8 +32,8 @@
 
       <v-divider/>
 
-      <v-card-text class="white--text">
-        &copy; {{ new Date().getFullYear() }} - りょーた
+      <v-card-text>
+        &copy; 2022<span v-if="new Date().getFullYear() != '2022'"> - {{ new Date().getFullYear() }}</span> - りょーた
       </v-card-text>
     </v-card>
   </v-footer>
