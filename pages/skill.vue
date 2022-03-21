@@ -32,11 +32,13 @@
                   height="100%"
                   width="100%"
                 >
-                  <MaterialsCardImg
-                    :img-src="`programming/${skill.img}`"
+                  <div
+                    @click="skill.reveal = true"
                   >
-                  </MaterialsCardImg>
-                    <v-spacer/>
+                    <MaterialsCardImg
+                      :img-src="`programming/${skill.img}`"
+                    >
+                    </MaterialsCardImg>
                     <v-rating
                       :value="skill.rating"
                       color="yellow accent-4"
@@ -46,20 +48,9 @@
                       :small="isSm()"
                       :x-small="isXs()"
                     />
-                    <v-spacer/>
-                  <v-card-actions>
-                    <v-btn
-                      icon
-                      @click="skill.reveal = true"
-                    >
-                      <v-icon
-                        :small="isSm()"
-                        :x-small="isXs()"
-                      >
-                        mdi-cursor-default-click
-                      </v-icon>
-                    </v-btn>
-                  </v-card-actions>
+                    <v-card-actions>
+                    </v-card-actions>
+                  </div>
 
                   <v-expand-transition>
                     <v-card
