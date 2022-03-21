@@ -81,6 +81,8 @@ export default {
     '@nuxtjs/google-gtag',
     // 日付フォーマット
     '@nuxtjs/date-fns',
+    // 環境変数読み込みのため
+    '@nuxtjs/dotenv',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -94,7 +96,14 @@ export default {
       {
         offset: -10
       }
-    ]
+    ],
+    [
+      '@nuxtjs/google-gtag',
+      {
+        id: process.env.GOOGLE_ANALYTICS_ID,
+        debug: true,
+      }
+    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -151,19 +160,9 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
-  // googleAnalytics: {
-  //   id: process.env.GOOGLE_ANALYTICS_ID
-  // },
-  googleGtag: {
-    id: process.env.GOOGLE_ANALYTICS_ID,
-    debug: true,
-  },
+
 
   publicRuntimeConfig: {
-    googleGtag: {
-      id: process.env.GOOGLE_ANALYTICS_ID,
-      debug: true,
-    },
     WEATHER_API_KEY: process.env.WEATHER_API_KEY,
   },
 
