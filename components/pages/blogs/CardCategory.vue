@@ -1,12 +1,10 @@
 <template>
   <span
-    :class="
-      'card-category ' +
-      ($vuetify.breakpoint.mobile? 'text-caption' : '')
-    "
+    :class="'card-category'"
   >
     <v-icon
-      x-small
+      small
+      color="brown lighten-1"
     >
       mdi-folder
     </v-icon>
@@ -17,10 +15,6 @@
 <style lang="scss" scoped>
 .card-category {
   display: inline-block;
-  font-size: .8em;
-  background-color: rgba(250, 177, 67, 0.562);
-  border-radius: 5px;
-  border: solid .1px rgba(0, 0, 0, 0.4);
   padding: 0 2px;
   margin: 0 2px;
 }

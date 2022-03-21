@@ -4,56 +4,69 @@
       v-if="!$vuetify.breakpoint.mobile"
       cols="2"
     >
-      <PagesBlogsSideTransition
-        :display-text="categoryButtonText"
-        :tool-tip-text="'please choose category'"
-        :items="categories"
-        :icon="CATEGORY_ICON"
-      />
-      <PagesBlogsSideTransition
-        :display-text="tagButtonText"
-        :tool-tip-text="'please choose tag'"
-        :items="tags"
-        :icon="TAG_ICON"
-      />
     </v-col>
 
-    <v-col
-      :cols="$vuetify.breakpoint.mobile? 12 : 9"
-    >
-      <v-sheet rounded="lg">
+    <v-col>
+      <v-sheet rounded="lg" light>
         <v-container>
+          <v-list>
+            <v-list-item-group>
+              <template v-for="(blog, blogIndex) in blogs">
+                <v-list-item
+                  :key="blogIndex"
+                  :to="blog.path"
+                  nuxt
+                  two-line
+                >
+                  <v-list-item-action>
+                    <v-img
+                      :src="require(`@/assets/img/${blog.imgsrc}`)"
+                      :width="$vuetify.breakpoint.mobile ? '25px' : '100px'"
+                      :height="$vuetify.breakpoint.mobile ? '25px' : '100px'"
+                      light
+                      :alt=blog.imgsrc
+                    ></v-img>
+                  </v-list-item-action>
+                  <v-list-item-content>
+                    <v-list-item-title
+                      style="overflow-wrap: break-word;"
+                      v-text="blog.title"
+                    />
+                    <v-list-item-subtitle
+                    >
+                      <PagesBlogsCardCategory>
+                        {{ blog.category }}
+                      </PagesBlogsCardCategory>
+                      <PagesBlogsCardTag
+                        v-for="(tag, tagIndex) in blog.tags"
+                        :key="tagIndex"
+                      >
+                        {{ tag }}
+                      </PagesBlogsCardTag>
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
 
-          <v-row
-          >
-            <v-col
-              v-if="blogs.length === 0"
-              cols="12"
-              justify="center"
-              align="center"
-            >
-              <PagesBlogsNotExist/>
-            </v-col>
-
-            <v-col
-              v-for="(blog, i) in blogs"
-              :key="'col-' + i"
-              cols="6"
-              sm="6"
-              md="4"
-              lg="3"
-            >
-              <PagesBlogsContent
-                :blog="blog"
-              />
-            </v-col>
-          </v-row>
+                <v-divider
+                  v-if="blogIndex != blogs.length-1"
+                  :key="'divider-' + blogIndex"
+                >
+                </v-divider>
+              </template>
+              <v-item
+                v-if="blogs.length==0"
+              >
+                <PagesBlogsNotExist/>
+              </v-item>
+            </v-list-item-group>
+          </v-list>
         </v-container>
       </v-sheet>
     </v-col>
+
     <v-col
       v-if="!$vuetify.breakpoint.mobile"
-      cols="1"
+      cols="2"
     />
   </v-row>
 </template>
