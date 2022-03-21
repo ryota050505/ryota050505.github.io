@@ -1,12 +1,10 @@
 <template>
   <span
-    :class="
-      'card-tag ' +
-      ($vuetify.breakpoint.mobile? 'text-caption' : '')
-    "
+    :class="'card-tag'"
   >
     <v-icon
-      x-small
+      small
+      color="light-blue darken-3"
     >
       mdi-tag
     </v-icon>
@@ -17,11 +15,6 @@
 <style lang="scss" scoped>
 .card-tag {
   display: inline-block;
-  font-size: .8em;
-  text-transform: none;
-  background-color: white;
-  border-radius: 5px;
-  border: solid .1px rgba(0, 0, 0, 0.4);
   padding: 0 2px;
   margin: 0 2px;
 }

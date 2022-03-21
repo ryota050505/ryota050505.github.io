@@ -77,8 +77,6 @@ export default {
     '@nuxtjs/vuetify',
     // UAの場合
     // '@nuxtjs/google-analytics',
-    // GA4の場合
-    '@nuxtjs/google-gtag',
     // 日付フォーマット
     '@nuxtjs/date-fns',
     // 環境変数読み込みのため
@@ -98,6 +96,7 @@ export default {
       }
     ],
     [
+      // GA4の場合
       '@nuxtjs/google-gtag',
       {
         id: process.env.GOOGLE_ANALYTICS_ID,
@@ -143,15 +142,10 @@ export default {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
+          base: colors.indigo,
         },
         light: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          base: colors.indigo.lighten4,
         }
       },
     },

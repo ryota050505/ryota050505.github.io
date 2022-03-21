@@ -1,6 +1,5 @@
 <template>
   <v-app-bar-nav-icon
-    color="white"
     @click="updateDrawer()"
   />
 </template>

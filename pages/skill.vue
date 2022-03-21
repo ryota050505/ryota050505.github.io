@@ -5,101 +5,90 @@
       cols="2"
     />
     <v-col>
-      <v-sheet min-height="70vh" rounded="lg">
-        <v-container>
-          <v-row>
-            <v-col
-              v-for="(skill, i) in skills"
-              :key="'col-' + i"
-              cols="6"
-              sm="6"
-              mx="6"
-              md="4"
-              lg="4"
-              xl="3"
+      <v-container>
+        <v-row>
+          <v-col
+            v-for="(skill, i) in skills"
+            :key="'col-' + i"
+            cols="6"
+            sm="6"
+            mx="6"
+            md="4"
+            lg="4"
+            xl="3"
+          >
+            <v-lazy
+              :options="{
+                threshold: 1.0
+              }"
+              transition="fade-transition"
+              height="100%"
+              width="100%"
             >
-              <v-lazy
-                :options="{
-                  threshold: 1.0
-                }"
-                transition="fade-transition"
+              <v-card
+                light
+                class="d-flex flex-column"
                 height="100%"
                 width="100%"
               >
-                <v-card
-                  light
-                  class="d-flex flex-column"
-                  height="100%"
-                  width="100%"
+                <div
+                  @click="skill.reveal = true"
                 >
                   <MaterialsCardImg
                     :img-src="`programming/${skill.img}`"
                   >
                   </MaterialsCardImg>
-                    <v-spacer/>
-                    <v-rating
-                      :value="skill.rating"
-                      color="yellow accent-4"
-                      class="text-center"
-                      half-increments
-                      readonly
-                      :small="isSm()"
-                      :x-small="isXs()"
-                    />
-                    <v-spacer/>
+                  <v-rating
+                    :value="skill.rating"
+                    color="yellow accent-4"
+                    class="text-center"
+                    half-increments
+                    readonly
+                    :small="isSm()"
+                    :x-small="isXs()"
+                  />
                   <v-card-actions>
-                    <v-btn
-                      icon
-                      @click="skill.reveal = true"
-                    >
-                      <v-icon
-                        :small="isSm()"
-                        :x-small="isXs()"
-                      >
-                        mdi-cursor-default-click
-                      </v-icon>
-                    </v-btn>
                   </v-card-actions>
+                </div>
 
-                  <v-expand-transition>
-                    <v-card
-                      v-if="skill.reveal"
-                      class="transition-fast-in-fast-out v-card--reveal"
-                      style="height: 100%; overflow: scroll;"
-                      dark
-                    >
-                      <v-card-text class="pb-0">
-                        <p
-                          :class="($vuetify.breakpoint.mobile ? 'text-subtitle-1' : 'text-h4') + ' text--primary'"
+                <v-expand-transition>
+                  <v-card
+                    v-if="skill.reveal"
+                    class="transition-fast-in-fast-out v-card--reveal"
+                    style="height: 100%; overflow: scroll;"
+                    dark
+                  >
+                    <v-card-text class="pb-0">
+                      <p
+                        :class="($vuetify.breakpoint.mobile ? 'text-subtitle-1' : 'text-h4') + ' text--white'"
+                      >
+                        {{ skill.language }}
+                      </p>
+                      <p
+                        :class="$vuetify.breakpoint.mobile? 'text-caption' : ''"
+                      >{{ skill.description }}</p>
+                    </v-card-text>
+                    <v-card-actions class="pt-0">
+                      <v-btn
+                        icon
+                        color="teal accent-4"
+                        @click="skill.reveal = false"
+                      >
+                        <v-icon
+                          :small="isSm()"
+                          :x-small="isXs()"
                         >
-                          {{ skill.language }}
-                        </p>
-                        <p
-                          :class="$vuetify.breakpoint.mobile? 'text-caption' : ''"
-                        >{{ skill.description }}</p>
-                      </v-card-text>
-                      <v-card-actions class="pt-0">
-                        <v-btn
-                          icon
-                          color="teal accent-4"
-                          @click="skill.reveal = false"
-                        >
-                          <v-icon
-                            :small="isSm()"
-                            :x-small="isXs()"
-                          >
-                            mdi-close
-                          </v-icon>
-                        </v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-expand-transition>
-                </v-card>
-              </v-lazy>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-sheet>
+                          mdi-close
+                        </v-icon>
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-expand-transition>
+              </v-card>
+            </v-lazy>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-col>
     <v-col
       v-if="!$vuetify.breakpoint.mobile"
