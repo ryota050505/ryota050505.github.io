@@ -59,12 +59,12 @@ export const FOOTER_CONTACT_LIST = [
   //   to: 'https://www.instagram.com/ryota_boc/',
   //   icon: 'mdi-instagram',
   // },
-  {
-    title: 'FaceBook',
-    to: 'https://www.facebook.com/profile.php?id=100072536162312',
-    icon: 'mdi-facebook',
-    color: 'indigo lighten-1',
-  },
+  // {
+  //   title: 'FaceBook',
+  //   to: 'https://www.facebook.com/profile.php?id=100072536162312',
+  //   icon: 'mdi-facebook',
+  //   color: 'indigo lighten-1',
+  // },
   {
     title: 'YouTube',
     to: 'https://www.youtube.com/channel/UCxrILSJ-mZGTc2f20ONxxZw',

@@ -8,33 +8,34 @@
       sm="12"
       xs="12"
     >
-      <v-sheet rounded="lg">
-        <v-list color="transparent">
-          <v-list-item
-            v-for="(type, i) in types" :key="i"
-            link
+      <v-list>
+        <v-list-item
+          v-for="(type, i) in types" :key="i"
+        >
+          <v-list-item-content
           >
-            <v-list-item-content
-              @click="filterTimeline(type.type)"
+            <v-checkbox
+              v-model="typesForFilter"
+              :value="type.type"
+              :label="type.title"
             >
-              <v-list-item-title>{{ type.title }} </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
+            </v-checkbox>
+          </v-list-item-content>
+        </v-list-item>
 
-          <v-divider class="my-2"></v-divider>
+        <v-divider class="my-2"></v-divider>
 
-          <v-list-item color="grey lighten-4">
-            <v-list-item-content>
-              <v-switch
-                v-model="denseTrigger"
-                label="dense"
-                :disabled=$vuetify.breakpoint.xs
-              >
-              </v-switch>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-sheet>
+        <v-list-item color="grey lighten-4">
+          <v-list-item-content>
+            <v-switch
+              v-model="denseTrigger"
+              v-resize="onResize"
+              label="dense"
+            >
+            </v-switch>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </v-col>
 
     <v-col>
@@ -143,7 +144,8 @@
 <script lang="ts">
 import {
   Component,
-  Vue
+  Vue,
+  Watch,
 } from 'nuxt-property-decorator'
 
 import {
@@ -163,6 +165,8 @@ export default class ProfilePage extends Vue {
 
   private timeline = TIMELINE
 
+  private typesForFilter = Object.values(TIMELINE_KEY)
+
   get Timeline() {
     return this.timeline
   }
@@ -171,27 +175,28 @@ export default class ProfilePage extends Vue {
     this.timeline = timeline
   }
 
-  private filterTimeline(type :string) :void {
-    this.Timeline = type === TIMELINE_KEY.ALL ? TIMELINE : TIMELINE.filter(x => x.key === type)
-  }
-
-  types = [
-    {
-      type: TIMELINE_KEY.ALL,
-      title: '全て',
-    },
+  private types = [
     {
       type: TIMELINE_KEY.SCHOOL,
       title: '学校',
     },
     {
       type: TIMELINE_KEY.PARTTIME,
-      title: 'アルバイト'
+      title: 'アルバイト',
     },
     {
       type: TIMELINE_KEY.INTERNSHIP,
       title: 'インターン',
     }
   ]
+
+  private onResize() {
+    this.denseTrigger = this.$vuetify.breakpoint.smAndDown ? true : this.denseTrigger
+  }
+
+  @Watch('typesForFilter')
+  onChangeTypesStatus() {
+    this.Timeline = TIMELINE.filter(x => this.typesForFilter.includes(x.key))
+  }
 }
 </script>
