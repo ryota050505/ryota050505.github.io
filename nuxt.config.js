@@ -103,7 +103,13 @@ export default {
         debug: process.env.DEBUG,
       }
     ],
+    '@nuxtjs/sitemap',
   ],
+
+  sitemap: {
+    path: '/sitemap.xml',
+    hostname: 'https://www.ordev.link/',
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
@@ -165,7 +171,15 @@ export default {
       const { $content } = require('@nuxt/content')
       const files = await $content({ deep: true }).only(['path']).fetch()
 
-      return files.map(file => file.path)
+      return files
+        .filter(
+          file => file.path !== '/settings' &&
+                  file.path !== '/template' &&
+                  file.path !== '/hello'
+        )
+        .map((file) => {
+          return file.path
+        })
     }
   }
 }
