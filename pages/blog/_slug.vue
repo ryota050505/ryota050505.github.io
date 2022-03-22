@@ -31,6 +31,13 @@
       >
         <v-container>
           <article>
+            <v-breadcrumbs
+              :items="breadcrumbs"
+            >
+              <template #divider>
+                <v-icon>mdi-chevron-right</v-icon>
+              </template>
+            </v-breadcrumbs>
             <v-img
               :src="require(`@/assets/img/${blog.imgsrc ? blog.imgsrc : 'nuxtjs_vuetify.png'}`)"
               contain
@@ -90,10 +97,24 @@ import { LocalHeader } from '~/types/LocalHeader'
       .surround(params.slug)
       .fetch()
 
+    const breadcrumbs = [
+      {
+        text: 'blogs',
+        disabled: false,
+        to: '/blogs',
+      },
+      {
+        text: blog.title,
+        disabled: true,
+        to: blog.path,
+      }
+    ]
+
     return {
       blog,
       prev,
       next,
+      breadcrumbs,
     }
   },
 })
@@ -109,7 +130,6 @@ export default class BlogDetail extends Vue {
   }
 
   mounted() {
-
     if (!process.browser) return
     this.$nextTick(() => {
       setTimeout(this.moveToHash, 200)
@@ -153,7 +173,6 @@ article {
     }
   }
 }
-
 
 .v-application code {
   all: unset;
