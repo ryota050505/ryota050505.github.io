@@ -1,5 +1,6 @@
 <template>
   <v-app-bar-nav-icon
+    aria-label="NavIcon"
     @click="updateDrawer()"
   />
 </template>

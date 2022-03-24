@@ -73,6 +73,10 @@
 
 <script lang="ts">
 import {
+  mdiFolder,
+  mdiTag,
+} from '@mdi/js'
+import {
   Component,
   Vue,
 } from 'nuxt-property-decorator'
@@ -88,9 +92,9 @@ import {
 } from '~/types/LocalHeader'
 
 const DEFAULT_CATEGORY_BUTTON_TEXT = 'CATEGORY'
-const CATEGORY_ICON = 'mdi-folder'
+const CATEGORY_ICON = mdiFolder
 const DEFAULT_TAG_BUTTON_TEXT = 'TAG'
-const TAG_ICON = 'mdi-tag'
+const TAG_ICON = mdiTag
 
 @Component({
   async asyncData({ $content, route, redirect }: { $content: any, route: any, redirect: any }) {

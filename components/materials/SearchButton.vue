@@ -7,12 +7,15 @@
   >
     <v-icon
     >
-      mdi-magnify
+      {{ searchIcon }}
     </v-icon>
   </v-btn>
 </template>
 
 <script lang="ts">
+import {
+  mdiMagnify,
+} from '@mdi/js'
 import {
   Component,
   Prop,
@@ -28,6 +31,8 @@ import {
 export default class SearchButton extends Pathable {
   @Prop({ type: String, required: true })
   private query!: string
+
+  private searchIcon = mdiMagnify
 
   private search():void {
     const {
