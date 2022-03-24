@@ -8,6 +8,7 @@
     >
       <v-btn
         nuxt
+        :aria-label="ariaLabel"
         :to="to"
         :icon="isIcon"
         v-on="{ ...tooltip }"
@@ -32,7 +33,7 @@ import {
 
 @Component
 export default class TransitionToolTip extends Vue {
-  @Prop({ type: Object , required: true })
+  @Prop({ type: Object, required: true })
   private to!:string | object
 
   @Prop({ type: Boolean, default: false })
@@ -40,5 +41,8 @@ export default class TransitionToolTip extends Vue {
 
   @Prop({ type: Boolean, default: false })
   private isBottom!: boolean
+
+  @Prop({ type: String, required: true})
+  private ariaLabel!: string
 }
 </script>

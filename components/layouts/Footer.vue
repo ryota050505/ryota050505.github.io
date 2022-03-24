@@ -15,6 +15,7 @@
         <v-btn
           v-for="(icon, i) in contactList"
           :key="i"
+          :aria-label="icon.title"
           class="mx-4"
           icon
           @click="jumpLinkTo(icon.to)"
@@ -32,7 +33,9 @@
 
       <v-divider/>
 
-      <v-card-text>
+      <v-card-text
+        class="white--text"
+      >
         &copy; 2022<span v-if="new Date().getFullYear() != '2022'"> - {{ new Date().getFullYear() }}</span> - りょーた
       </v-card-text>
     </v-card>

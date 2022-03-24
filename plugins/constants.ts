@@ -1,4 +1,15 @@
 import {
+  mdiFaceManProfile,
+  mdiGithub,
+  mdiHome,
+  mdiLaptop,
+  mdiMessageText,
+  mdiPost,
+  mdiTwitter,
+  mdiYoutube,
+} from '@mdi/js'
+
+import {
   LinkList
 } from "~/types/LinkList"
 
@@ -12,31 +23,31 @@ export const LINK_LIST :LinkList = [
   {
     title: 'Home',
     to: '/',
-    icon: 'mdi-home',
+    icon: mdiHome,
     color: 'green accent-3',
   },
   {
     title: 'Profile',
     to: '/profile',
-    icon: 'mdi-face-man-profile',
+    icon: mdiFaceManProfile,
     color: 'brown lighten-1',
   },
   {
     title: 'Skill',
     to: '/skill',
-    icon: 'mdi-laptop',
+    icon: mdiLaptop,
     color: 'purple accent-3',
   },
   {
     title: 'Blog',
     to: '/blogs',
-    icon: 'mdi-post',
+    icon: mdiPost,
     color: 'orange accent-3',
   },
   {
     title: 'News',
     to: '/news',
-    icon: 'mdi-message-text',
+    icon: mdiMessageText,
     color: 'cyan accent-3',
   },
 ]
@@ -45,13 +56,13 @@ export const FOOTER_CONTACT_LIST = [
   {
     title: 'Twitter',
     to: 'https://twitter.com/05_BOC_05',
-    icon: 'mdi-twitter',
+    icon: mdiTwitter,
     color: 'blue',
   },
   {
     title: 'GitHub',
     to: 'https://github.com/ryota050505',
-    icon: 'mdi-github',
+    icon: mdiGithub,
     color: 'grey lighten-1',
   },
   // {
@@ -68,7 +79,7 @@ export const FOOTER_CONTACT_LIST = [
   {
     title: 'YouTube',
     to: 'https://www.youtube.com/channel/UCxrILSJ-mZGTc2f20ONxxZw',
-    icon: 'mdi-youtube',
+    icon: mdiYoutube,
     color: 'red lighten-1',
   },
   // {

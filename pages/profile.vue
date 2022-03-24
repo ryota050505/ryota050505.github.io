@@ -72,6 +72,7 @@
                   :class="`
                     headline
                     font-weight-light
+                    white--text
                     ${$vuetify.breakpoint.xs ? 'text-subtitle-1': ''}
                   `"
                 >

@@ -7,6 +7,7 @@
         :to="{ name: 'blog-slug', params: { slug: prev.slug } }"
         :is-icon="true"
         :is-bottom="true"
+        :aria-label="'前の記事へ'"
       >
         <template
           #top
@@ -33,6 +34,7 @@
         :to="{ name: 'blog-slug', params: { slug: next.slug } }"
         :is-icon="true"
         :is-bottom="true"
+        :aria-label="'次の記事へ'"
       >
         <template
           #top
