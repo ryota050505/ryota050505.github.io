@@ -56,8 +56,6 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    // 'gitbook-markdown-css',
-    // 'github-markdown-css',
     '~/assets/css/markdown.css',
   ],
 
