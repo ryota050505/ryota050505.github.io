@@ -1,25 +1,59 @@
 <template>
   <v-row>
+    <v-col
+      v-if="!$vuetify.breakpoint.mobile"
+      cols="2"
+    />
+
     <v-col>
-      <v-sheet min-height="70vh" rounded="lg">
-        <v-container>
-          <title>{{ posts.city.name }}</title>
-          {{ date.getMonth()+1 }}月{{ date.getDate() }}日{{WEEK[date.getDay()] + date.getHours() + " :00"}}
-          <div>
-            {{ posts.list[0].weather[0].icon }}<br>
-            {{ Math.round(posts.list[0].main.temp) }}<br>
-          </div>
-        </v-container>
-      </v-sheet>
+      <v-container>
+        <v-tabs
+          v-model="tab"
+          show-arrows
+        >
+          <v-tabs-slider color="teal lighten-3"/>
+          <v-tab>
+            Qiita
+          </v-tab>
+          <v-tab>
+            Weather
+          </v-tab>
+        </v-tabs>
+
+        <v-tabs-items v-model="tab">
+          <v-tab-item>
+            <PagesNewsQiita
+              :items="qiita"
+            />
+          </v-tab-item>
+          <v-tab-item>
+            ここにお天気
+          </v-tab-item>
+        </v-tabs-items>
+      </v-container>
     </v-col>
+
+    <v-col
+      v-if="!$vuetify.breakpoint.mobile"
+      cols="2"
+    />
   </v-row>
 </template>
 
 <script lang="ts">
 import axios from "axios"
-import { Component, Vue } from 'nuxt-property-decorator'
+import {
+  Component,
+  Vue
+} from 'nuxt-property-decorator'
 
-import { LocalHeader } from '~/types/LocalHeader'
+import { jumpLinkTo } from "~/lib/link"
+import {
+  getQiitaPosts
+} from '~/lib/qiitaApi'
+import {
+  LocalHeader
+} from '~/types/LocalHeader'
 @Component
 export default class NewsPage extends Vue {
 
@@ -34,6 +68,7 @@ export default class NewsPage extends Vue {
     { text: "email", value: "email"},
   ]
 
+
   head(): LocalHeader {
     return {
       title: 'News',
@@ -46,9 +81,12 @@ export default class NewsPage extends Vue {
     const url = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + ',jp&units=metric&APPID=' + API_KEY
     const res = await axios.get(url)
     const posts = res.data
-    console.log('asyncData:', posts)
     const date = new Date(posts.list[0].dt_txt)
-    return { posts, date }
+    const qiita = await getQiitaPosts()
+    return { posts, date, qiita }
   }
+
+  private jumpLinkTo = jumpLinkTo
+  private tab: boolean = true
 }
 </script>

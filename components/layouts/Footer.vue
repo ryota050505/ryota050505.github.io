@@ -51,13 +51,14 @@ import {
 import {
   FOOTER_CONTACT_LIST,
 } from '~/constants/Footer'
+import {
+  jumpLinkTo
+} from '~/lib/link'
 @Component
 export default class FooterComponent extends Vue {
 
   contactList = FOOTER_CONTACT_LIST
 
-  jumpLinkTo(url: string): void {
-    window.open(url, '_blank')
-  }
+  private jumpLinkTo = jumpLinkTo
 }
 </script>
