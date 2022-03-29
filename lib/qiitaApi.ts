@@ -19,15 +19,6 @@ export const getQiitaPosts = async () => {
       }
     )
 
-  // const res = await fetch(`${QIITA_URL}items?page=1&per_page=50&query=created%3A%3E${limitdate}+stocks%3A%3E20`, key)
-  //   .catch((err) => {
-  //     console.error(err)
-  //   })
-
-  // if (json.message) {
-  //   console.error(json.message)
-  //   throw new Error('Failed to fetch API')
-  // }
     return res.data
   } catch(err) {
     console.error(err)

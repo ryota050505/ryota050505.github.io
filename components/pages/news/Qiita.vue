@@ -49,9 +49,13 @@ import {
   Vue,
 } from 'nuxt-property-decorator'
 
+import { jumpLinkTo } from "~/lib/link"
+
 @Component
 export default class Qiita extends Vue{
   @Prop({ type: Array, required: true })
   private items!: Array<object>
+
+  private jumpLinkTo = jumpLinkTo
 }
 </script>

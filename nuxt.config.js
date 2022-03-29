@@ -11,7 +11,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - takoyaki',
-    title: 'takoyaki',
+    title: '',
     htmlAttrs: {
       lang: 'ja',
     },
@@ -156,12 +156,6 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
-
-
-
-  publicRuntimeConfig: {
-    WEATHER_API_KEY: process.env.WEATHER_API_KEY,
-  },
 
   generate: {
     async routes() {

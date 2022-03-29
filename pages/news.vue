@@ -16,7 +16,10 @@
             Qiita
           </v-tab>
           <v-tab>
-            Weather
+            CurrentWeather
+          </v-tab>
+          <v-tab>
+            PredictWeather
           </v-tab>
         </v-tabs>
 
@@ -27,7 +30,14 @@
             />
           </v-tab-item>
           <v-tab-item>
-            ここにお天気
+            <PagesNewsCurrentWeather
+              :items="[currentWeather]"
+            />
+          </v-tab-item>
+          <v-tab-item>
+            <PagesNewsPredictWeather
+              :items="threeWeather"
+            />
           </v-tab-item>
         </v-tabs-items>
       </v-container>
@@ -41,16 +51,18 @@
 </template>
 
 <script lang="ts">
-import axios from "axios"
 import {
   Component,
-  Vue
+  Vue,
 } from 'nuxt-property-decorator'
 
-import { jumpLinkTo } from "~/lib/link"
 import {
   getQiitaPosts
 } from '~/lib/qiitaApi'
+import {
+  fetchCurrentWeatherInfo,
+  fetchThreeWeatherInfo,
+} from '~/lib/weatherApi'
 import {
   LocalHeader
 } from '~/types/LocalHeader'
@@ -68,25 +80,33 @@ export default class NewsPage extends Vue {
     { text: "email", value: "email"},
   ]
 
-
   head(): LocalHeader {
     return {
       title: 'News',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Qiitaや天気情報など、様々な情報をここにまとめて、暇なときに見られるようにするためのページです。',
+        }
+      ]
     }
   }
 
-  async asyncData({ $config }:any) {
-    const API_KEY = $config.WEATHER_API_KEY
-    const city = 'Tokyo'
-    const url = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + ',jp&units=metric&APPID=' + API_KEY
-    const res = await axios.get(url)
-    const posts = res.data
-    const date = new Date(posts.list[0].dt_txt)
+  async asyncData({ $axios }: { $axios: any }) {
     const qiita = await getQiitaPosts()
-    return { posts, date, qiita }
+    // const currentWeather = await fetchCurrentWeatherInfo('Tokyo')
+    // const threeWeather = await fetchThreeWeatherInfo('Tokyo')
+    // 一旦ダミー
+    const currentWeather = await $axios.get('/data/weather.json').then((res: any) => res.data)
+    const threeWeather = await $axios.get('/data/three_weather.json').then((res: any) => res.data)
+    return {
+      qiita,
+      currentWeather,
+      threeWeather,
+    }
   }
 
-  private jumpLinkTo = jumpLinkTo
   private tab: boolean = true
 }
 </script>
