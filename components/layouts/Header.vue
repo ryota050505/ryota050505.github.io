@@ -39,7 +39,7 @@ import {
 
 import {
   LINK_LIST
-} from '~/plugins/constants'
+} from '~/constants/Header'
 import {
   LinkList,
 } from '~/types/LinkList'

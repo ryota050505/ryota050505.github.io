@@ -1,4 +1,4 @@
 export type LocalHeader = {
   title: string
-  description?: string
+  meta?: Array<Object>
 }

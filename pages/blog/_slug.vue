@@ -125,7 +125,13 @@ export default class BlogDetail extends Vue {
   head(): LocalHeader {
     return {
       title: this.blog.title,
-      description: this.blog.description,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.blog.description
+        }
+      ],
     }
   }
 

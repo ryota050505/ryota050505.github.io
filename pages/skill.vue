@@ -106,10 +106,13 @@ import {
 import {
   LocalHeader
 } from '~/types/LocalHeader'
+import {
+  SkillList
+} from '~/types/Skill'
 @Component
 export default class SkillPage extends Vue {
 
-  private skills = [
+  private skills: SkillList = [
     {
       language: 'Java',
       img: 'java.svg',
@@ -192,6 +195,13 @@ export default class SkillPage extends Vue {
   head(): LocalHeader {
     return {
       title: 'Skill',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: '開発経験がある言語を載せています。星の数は完全な主観です。',
+        }
+      ]
     }
   }
 
