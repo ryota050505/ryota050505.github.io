@@ -16,10 +16,8 @@
           v-for="(icon, i) in contactList"
           :key="i"
           :aria-label="icon.title"
-          style="opacity: 1"
           class="mx-4"
           icon
-          plain
           @click="jumpLinkTo(icon.to)"
         >
           <v-hover v-slot="{ hover }">
