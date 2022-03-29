@@ -23,7 +23,7 @@ import {
 
 import {
   ENTER_KEY_CODE
-} from '~/plugins/constants'
+} from '~/constants/Search'
 import {
   Pathable,
 } from '~/types/Pathable'

@@ -23,7 +23,6 @@
     </v-col>
 
     <v-col
-      :cols="$vuetify.breakpoint.mobile? 12 : 8"
     >
       <v-sheet
         rounded="lg"
@@ -46,10 +45,25 @@
               height="214px"
               max-height="214px"
             />
-            <div class="title">
-              <div class="text-right">
-                <v-icon small>mdi-update</v-icon>
-                <span class="font-weight-light text-caption">{{ $dateFns.format(new Date(blog.updatedAt), 'yyyy.MM.dd') }}</span>
+            <div>
+              <div class="text-right font-weight-light text-caption">
+                <div>
+                  <PagesBlogsCardCategory>
+                    {{ blog.category }}
+                  </PagesBlogsCardCategory>
+                </div>
+                <div>
+                  <PagesBlogsCardTag
+                    v-for="(tag, tagIndex) in blog.tags"
+                    :key="tagIndex"
+                  >
+                    {{ tag }}
+                  </PagesBlogsCardTag>
+                </div>
+                <div>
+                  <v-icon small>{{ UPDATE_ICON }}</v-icon>
+                  <span>{{ $dateFns.format(new Date(blog.updatedAt), 'yyyy.MM.dd') }}</span>
+                </div>
               </div>
               <h1
                 class="text-center"
@@ -80,6 +94,9 @@
 </template>
 
 <script lang="ts">
+import {
+  mdiUpdate,
+} from '@mdi/js'
 import {
   Component,
   Vue,
@@ -122,10 +139,18 @@ export default class BlogDetail extends Vue {
 
   private blog?: any
 
+  private UPDATE_ICON = mdiUpdate
+
   head(): LocalHeader {
     return {
       title: this.blog.title,
-      description: this.blog.description,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.blog.description
+        }
+      ],
     }
   }
 

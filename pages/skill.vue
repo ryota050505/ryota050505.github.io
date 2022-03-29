@@ -104,94 +104,29 @@ import {
 } from 'nuxt-property-decorator'
 
 import {
+  SKILL_LIST
+} from '~/constants/Skill'
+import {
   LocalHeader
 } from '~/types/LocalHeader'
+import {
+  SkillList
+} from '~/types/Skill'
 @Component
 export default class SkillPage extends Vue {
 
-  private skills = [
-    {
-      language: 'Java',
-      img: 'java.svg',
-      description: 'アルバイトでSpringBootを使用しています。それに付随して、MyBatisやflyway等のライブラリも使用しています。',
-      rating: 4.2,
-      reveal: false,
-    },
-    {
-      language: 'PHP',
-      img: 'php.svg',
-      description: 'アルバイトで使用していました。一番馴染みがあります。',
-      rating: 4.2,
-      reveal: false,
-    },
-    {
-      language: 'Python',
-      img: 'python.svg',
-      description: '音声認識の研究で使用しています。scikit-learnいつもありがとう。',
-      rating: 3.5,
-      reveal: false,
-    },
-    {
-      language: 'C++',
-      img: 'c-plusplus.svg',
-      description: '音声認識の研究で使用しています。学部の頃はDxライブラリを使ってゲームを作ったりしていました。',
-      rating: 3.0,
-      reveal: false,
-    },
-    {
-      language: 'C',
-      img: 'c.svg',
-      description: '学部の頃、Javaの次に学びました。',
-      rating: 3.0,
-      reveal: false,
-    },
-    {
-      language: 'NuxtJS(Vue.js)',
-      img: 'nuxt-icon.svg',
-      description: '最近のフロントのメインです。Vuetify最高です。',
-      rating: 3.0,
-      reveal: false,
-    },
-    {
-      language: 'MySQL',
-      img: 'mysql.svg',
-      description: 'アルバイトでも趣味開発でも使用しています。SQL文はだいたい書けます。OracleDBもちょっと触ったことあります。',
-      rating: 4.0,
-      reveal: false,
-    },
-    {
-      language: 'Unity',
-      img: 'unity.svg',
-      description: 'これで3Dゲームを作ったりしてました。最近全く触ってないです。',
-      rating: 2.5,
-      reveal: false,
-    },
-    {
-      language: 'Git(GitHub,GitLab)',
-      img: 'git.svg',
-      description: 'アルバイトでも趣味開発でも使用しています。困った時のgit reset --hard origin/branch',
-      rating: 5.0,
-      reveal: false,
-    },
-    {
-      language: 'Docker',
-      img: 'docker.svg',
-      description: 'アルバイトで使用しています。また、友達と開発する際、環境に差が出ないようにするためなどに使用してます。',
-      rating: 3.5,
-      reveal: false,
-    },
-    {
-      language: 'AWS',
-      img: 'aws.svg',
-      description: '主に趣味開発で使用しています。EC2、RDS、ECS、S3、CloudFrontなど基本的なところは抑えています。',
-      rating: 3.5,
-      reveal: false,
-    }
-  ]
+  private skills: SkillList = SKILL_LIST
 
   head(): LocalHeader {
     return {
       title: 'Skill',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: '開発経験がある言語を載せています。星の数は完全な主観です。',
+        }
+      ]
     }
   }
 

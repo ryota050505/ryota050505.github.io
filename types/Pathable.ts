@@ -5,7 +5,7 @@ import {
 
 import {
   SEARCH_ACTIVE_PATHS
-} from '~/plugins/constants'
+} from '~/constants/Search'
 
 @Component
 export class Pathable extends Vue {

@@ -50,7 +50,7 @@ import {
 
 import {
   FOOTER_CONTACT_LIST,
-} from '~/plugins/constants'
+} from '~/constants/Footer'
 @Component
 export default class FooterComponent extends Vue {
 

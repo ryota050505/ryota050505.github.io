@@ -30,7 +30,7 @@
 
       <MaterialsSearchField
         :query.sync="query"
-        :max-width="$MAX_WIDTH_SP"
+        :max-width="MAX_WIDTH_SP"
       />
       <MaterialsSearchButton
         :query="query"
@@ -49,5 +49,6 @@ import Header from './Header.vue'
 @Component
 export default class HeaderSp extends Header {
   private drawer = false
+  private MAX_WIDTH_SP = 100
 }
 </script>
