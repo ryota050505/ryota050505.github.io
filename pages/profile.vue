@@ -8,32 +8,43 @@
       sm="12"
       xs="12"
     >
-      <v-list>
+      <v-list
+        dense
+        rounded
+      >
+        <v-subheader>FILTER</v-subheader>
         <v-list-item
           v-for="(type, i) in types" :key="i"
         >
-          <v-list-item-content
+          <v-list-item-action
           >
             <v-checkbox
               v-model="typesForFilter"
               :value="type.type"
-              :label="type.title"
             >
             </v-checkbox>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>
+              {{ type.title }}
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
         <v-divider class="my-2"></v-divider>
 
         <v-list-item color="grey lighten-4">
-          <v-list-item-content>
+          <v-list-item-action>
             <v-switch
               v-model="denseTrigger"
               v-resize="onResize"
-              label="dense"
             >
             </v-switch>
-          </v-list-item-content>
+            <v-list-item-action-text
+            >
+              dense
+            </v-list-item-action-text>
+          </v-list-item-action>
         </v-list-item>
       </v-list>
     </v-col>
@@ -41,102 +52,47 @@
     <v-col>
       <v-timeline
         light
-        :align-top=denseTrigger
-        :dense=denseTrigger
+        :align-top="denseTrigger"
+        :dense="denseTrigger"
       >
         <v-timeline-item
           v-for="(item, i) in Timeline"
           :key="i"
           :color="item.color"
-          :small=$vuetify.breakpoint.smAndDown
+          :small="$vuetify.breakpoint.smAndDown"
         >
           <v-row
             v-if="denseTrigger"
             class="pt-1 text-center"
           >
             <v-col cols="3">
-              <span
-                :class="`font-weight-bold
-                  ${item.color}--text
-                  ${$vuetify.breakpoint.xs ? 'text-caption': ''}
-                `"
-                v-text="item.year"
-              ></span>
+              <PagesProfileTimeStamp
+                :item="item"
+              />
             </v-col>
             <v-col>
-              <v-card
-                :color="item.color"
-                dark
-              >
-                <v-card-title
-                  :class="`
-                    headline
-                    font-weight-light
-                    white--text
-                    ${$vuetify.breakpoint.xs ? 'text-subtitle-1': ''}
-                  `"
-                >
-                  {{ item.title }}
-                </v-card-title>
-                <v-card-text
-                  v-if="item.body"
-                  :class="`
-                    white
-                    black--text
-                    text-left
-                    ${$vuetify.breakpoint.xs ? 'text-body-2': ''}
-                  `"
-                >
-                  {{ item.body }}
-                </v-card-text>
-              </v-card>
+              <PagesProfileCard
+                :item="item"
+              />
             </v-col>
           </v-row>
           <template
             v-if="!denseTrigger"
             #opposite
           >
-            <span
-              :class="`
-                font-weight-bold
-                ${item.color}--text text-center
-                ${$vuetify.breakpoint.xs ? 'text-caption': ''}
-              `"
-              v-text="item.year"
-            >
-            </span>
+            <PagesProfileTimeStamp
+              :item="item"
+            />
           </template>
-          <v-card
+          <PagesProfileCard
             v-if="!denseTrigger"
-            :color="item.color"
-            dark
-          >
-            <v-card-title
-              :class="`
-                headline
-                font-weight-light
-                ${$vuetify.breakpoint.xs ? 'text-subtitle-1': ''}
-              `"
-            >
-              {{ item.title }}
-            </v-card-title>
-            <v-card-text
-              v-if="item.body"
-              :class="`
-                white
-                black--text
-                text-left
-                ${$vuetify.breakpoint.xs ? 'text-body-1': ''}
-              `"
-            >
-              {{ item.body }}
-            </v-card-text>
-          </v-card>
+            :item="item"
+          />
         </v-timeline-item>
       </v-timeline>
     </v-col>
     <v-col
-      v-if=!$vuetify.breakpoint.smAndDown
+      v-if="!$vuetify.breakpoint.smAndDown"
       cols="2"
     />
   </v-row>
@@ -152,6 +108,7 @@ import {
 import {
   TIMELINE,
   TIMELINE_KEY,
+  TIMELINE_TITLE,
 } from '@/constants/Profile'
 import { LocalHeader } from '~/types/LocalHeader'
 @Component
@@ -186,15 +143,15 @@ export default class ProfilePage extends Vue {
   private types = [
     {
       type: TIMELINE_KEY.SCHOOL,
-      title: '学校',
+      title: TIMELINE_TITLE.SCHOOL,
     },
     {
       type: TIMELINE_KEY.PARTTIME,
-      title: 'アルバイト',
+      title: TIMELINE_TITLE.PARTTIME,
     },
     {
       type: TIMELINE_KEY.INTERNSHIP,
-      title: 'インターン',
+      title: TIMELINE_TITLE.INTERNSHIP,
     }
   ]
 
