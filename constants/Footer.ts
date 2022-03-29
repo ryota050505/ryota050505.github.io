@@ -15,7 +15,7 @@ export const FOOTER_CONTACT_LIST = [
     title: 'GitHub',
     to: 'https://github.com/ryota050505',
     icon: mdiGithub,
-    color: 'grey lighten-1',
+    color: 'grey',
   },
   // {
   //   title: 'Instgram',
