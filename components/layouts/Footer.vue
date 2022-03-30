@@ -16,10 +16,8 @@
           v-for="(icon, i) in contactList"
           :key="i"
           :aria-label="icon.title"
-          style="opacity: 1"
           class="mx-4"
           icon
-          plain
           @click="jumpLinkTo(icon.to)"
         >
           <v-hover v-slot="{ hover }">
@@ -53,13 +51,14 @@ import {
 import {
   FOOTER_CONTACT_LIST,
 } from '~/constants/Footer'
+import {
+  jumpLinkTo
+} from '~/lib/link'
 @Component
 export default class FooterComponent extends Vue {
 
   contactList = FOOTER_CONTACT_LIST
 
-  jumpLinkTo(url: string): void {
-    window.open(url, '_blank')
-  }
+  private jumpLinkTo = jumpLinkTo
 }
 </script>
