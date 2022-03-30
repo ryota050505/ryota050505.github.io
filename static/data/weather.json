@@ -1,14 +1,12 @@
-[
-  {
-    "id": 1,
-    "name": "Tokyo",
-    "main":
-      {
-        "temp": 8.0,
-        "temp_max": 9.0,
-        "temp_min": 1.0,
-        "humidity": 98,
-        "pressure": 1026
-      }
-  }
-]
+{
+  "id": 1,
+  "name": "Tokyo",
+  "main":
+    {
+      "temp": 8.0,
+      "temp_max": 9.0,
+      "temp_min": 1.0,
+      "humidity": 98,
+      "pressure": 1026
+    }
+}

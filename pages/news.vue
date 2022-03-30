@@ -99,7 +99,8 @@ export default class NewsPage extends Vue {
     // const threeWeather = await fetchThreeWeatherInfo('Tokyo')
     // 一旦ダミー
     const currentWeather = await $axios.get('/data/weather.json').then((res: any) => res.data)
-    const threeWeather = await $axios.get('/data/three_weather.json').then((res: any) => res.data)
+    console.log(currentWeather)
+    const threeWeather   = await $axios.get('/data/three_weather.json').then((res: any) => res.data)
     return {
       qiita,
       currentWeather,
