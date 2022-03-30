@@ -26,14 +26,14 @@ export default {
       { name: 'format-detection', content: 'telephone=no' },
       { hid: 'og:site_name', property: 'og:site_name', content: 'takoyaki' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
-      { hid: 'og:url', property: 'og:url', content: 'https://ryota050505.github.io/takoyaki' },
+      { hid: 'og:url', property: 'og:url', content: 'https://www.ordev.link/' },
       { hid: 'og:title', property: 'og:title', content: 'takoyaki' },
       {
         hid: 'og:description',
         name: 'og:description',
         content: 'とある大学院生の備忘録的なポートフォリオ的なサイトです。'
       },
-      { hid: 'og:image', property: 'og:image', content: `/takoyaki.png` },
+      { hid: 'og:image', property: 'og:image', content: `/icon-512x512.png` },
       { hid: 'apple-mobile-web-app-title', property: 'apple-mobile-web-app-title', content: 'takoyaki' },
       { hid: 'twitter:card', content: 'summary_large_image' },
     ],

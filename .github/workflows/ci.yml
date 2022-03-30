@@ -33,3 +33,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
           FOLDER: dist
+        env:
+          GOOGLE_ANALYTICS_ID: ${{ secrets.GOOGLE_ANALYTICS_ID }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+          QIITA_ENDPOINT_URL: ${{ secrets.QIITA_ENDPOINT_URL }}
+          QIITA_API_KEY: ${{ secrets.QIITA_API_KEY }}
