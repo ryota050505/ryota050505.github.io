@@ -15,7 +15,7 @@ import {
 } from 'nuxt-property-decorator'
 
 @Component
-export default class Qiita extends Vue{
+export default class CurrentWeather extends Vue{
   @Prop({ type: Array })
   private items!: Array<object>
 
