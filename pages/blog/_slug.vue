@@ -23,6 +23,7 @@
     </v-col>
 
     <v-col
+      :cols="$vuetify.breakpoint.mobile? 12 : 8"
     >
       <v-sheet
         rounded="lg"
@@ -199,6 +200,10 @@ article {
   }
 }
 
+.v-application p {
+  padding: unset;
+}
+
 .v-application code {
   all: unset;
 }
@@ -224,6 +229,10 @@ article {
   padding: 0.25rem 0.5rem;
   position: absolute;
   margin:0 0 0 auto;
+}
+
+article p {
+  line-height: 180%;
 }
 
 blockquote {
