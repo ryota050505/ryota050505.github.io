@@ -105,7 +105,7 @@ export default {
 
   sitemap: {
     path: '/sitemap.xml',
-    hostname: 'https://www.ordev.link/',
+    hostname: 'https://www.ordev.link',
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -160,6 +160,10 @@ export default {
   publicRuntimeConfig: {
     QIITA_ENDPOINT_URL: process.env.QIITA_ENDPOINT_URL,
     QIITA_API_KEY: process.env.QIITA_API_KEY,
+  },
+
+  router: {
+    middleware: 'trailingSlashRedirect',
   },
 
   generate: {
