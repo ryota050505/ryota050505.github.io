@@ -163,12 +163,11 @@ export default {
   },
 
   router: {
-    trailingSlash: false,
+    trailingSlash: true,
     middleware: 'trailingSlashRedirect',
   },
 
   generate: {
-    subFolders: false,
     async routes() {
       const { $content } = require('@nuxt/content')
       const files = await $content({ deep: true }).only(['path']).fetch()
@@ -180,7 +179,7 @@ export default {
                   file.path !== '/hello'
         )
         .map((file) => {
-          return file.path
+          return file.path + '/'
         })
     }
   }
