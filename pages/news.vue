@@ -93,8 +93,8 @@ export default class NewsPage extends Vue {
     }
   }
 
-  async asyncData({ $axios }: { $axios: any }) {
-    const qiita = await getQiitaPosts()
+  async asyncData({ $axios, $config }: { $axios: any, $config: any }) {
+    const qiita = await getQiitaPosts($config.QIITA_ENDPOINT_URL, $config.QIITA_API_KEY)
     // const currentWeather = await fetchCurrentWeatherInfo('Tokyo')
     // const threeWeather = await fetchThreeWeatherInfo('Tokyo')
     // 一旦ダミー

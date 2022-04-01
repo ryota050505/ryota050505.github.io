@@ -157,6 +157,11 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 
+  publicRuntimeConfig: {
+    QIITA_ENDPOINT_URL: process.env.QIITA_ENDPOINT_URL,
+    QIITA_API_KEY: process.env.QIITA_API_KEY,
+  },
+
   generate: {
     async routes() {
       const { $content } = require('@nuxt/content')
