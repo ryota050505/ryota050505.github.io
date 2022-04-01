@@ -163,7 +163,7 @@ export default {
   },
 
   router: {
-    trailingSlash: false,
+    // trailingSlash: false,
     middleware: 'trailingSlashRedirect',
   },
 
