@@ -1,13 +1,25 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <v-card class="logo py-4 d-flex justify-center">
-        <v-img
-          :src="require(`@/assets/img/takoyaki.png`)"
-        />
-      </v-card>
-    </v-col>
-  </v-row>
+  <v-parallax
+    dark
+    src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+  >
+    <v-row
+      align="center"
+      justify="center"
+    >
+      <v-col
+        class="text-center"
+        cols="12"
+      >
+        <h1 class="text-h4 font-weight-thin mb-4">
+          Takoyaki
+        </h1>
+        <h4 class="subheading">
+          
+        </h4>
+      </v-col>
+    </v-row>
+  </v-parallax>
 </template>
 
 <script lang="ts">

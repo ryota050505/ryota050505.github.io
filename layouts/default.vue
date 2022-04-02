@@ -13,6 +13,7 @@
           mode="out-in"
         >
         <Nuxt
+          keep-alive
         />
         </v-fade-transition>
       </v-container>
