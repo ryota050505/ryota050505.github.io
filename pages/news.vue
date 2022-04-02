@@ -63,35 +63,17 @@ import {
   fetchCurrentWeatherInfo,
   fetchThreeWeatherInfo,
 } from '~/lib/weatherApi'
-import {
-  LocalHeader
-} from '~/types/LocalHeader'
-@Component
+import head from '~/mixins/head'
+@Component({
+  mixins: [
+    head,
+  ],
+})
 export default class NewsPage extends Vue {
 
-  WEEK = ["（日）","（月）","（火）","（水）","（木）","（金）","（土）"]
-  items: any = []
-  posts: any = []
-  date: any = []
-
-  headers = [
-    { text: "id", value: "postId" },
-    { text: "name", value: "name"},
-    { text: "email", value: "email"},
-  ]
-
-  head(): LocalHeader {
-    return {
-      title: 'News',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'Qiitaや天気情報など、様々な情報をここにまとめて、暇なときに見られるようにするためのページです。',
-        }
-      ]
-    }
-  }
+  private title = 'News'
+  private description = 'Qiitaや天気情報など、様々な情報をここにまとめて、暇なときに見られるようにするためのページです。'
+  private tab = true
 
   async asyncData({ $axios, $config }: { $axios: any, $config: any }) {
     const qiita = await getQiitaPosts($config.QIITA_ENDPOINT_URL, $config.QIITA_API_KEY)
@@ -106,7 +88,5 @@ export default class NewsPage extends Vue {
       threeWeather,
     }
   }
-
-  private tab: boolean = true
 }
 </script>

@@ -104,31 +104,23 @@ import {
 } from 'nuxt-property-decorator'
 
 import {
-  SKILL_LIST
+  SKILL_LIST,
 } from '~/constants/Skill'
-import {
-  LocalHeader
-} from '~/types/LocalHeader'
+import head from '~/mixins/head'
 import {
   SkillList
 } from '~/types/Skill'
-@Component
+@Component({
+  mixins: [
+    head,
+  ],
+})
 export default class SkillPage extends Vue {
 
   private skills: SkillList = SKILL_LIST
 
-  head(): LocalHeader {
-    return {
-      title: 'Skill',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: '開発経験がある言語を載せています。星の数は完全な主観です。',
-        }
-      ]
-    }
-  }
+  private title = 'Skill'
+  private description = '開発経験がある言語を載せています。星の数は完全な主観です。'
 
   private isXs() {
     return this.$vuetify.breakpoint.name === 'xs'

@@ -81,9 +81,7 @@ import {
   Vue,
 } from 'nuxt-property-decorator'
 
-import {
-  LocalHeader,
-} from '~/types/LocalHeader'
+import head from '~/mixins/head'
 
 @Component({
   async asyncData({ $content, route }: { $content: any, route: any }) {
@@ -111,22 +109,16 @@ import {
     'q',
     'page',
   ],
+  mixins: [
+    head,
+  ],
 })
 export default class BlogsPage extends Vue {
 
   private TAG_ICON = mdiTag
   private CATEGORY_ICON = mdiFolder
 
-  head(): LocalHeader {
-    return {
-      title: 'Blogs',
-      meta: [
-        {
-          hid: 'description',
-          name: 'desciption',
-          content: 'メモ書きのようなブログのようなものをちまちま載せていくページです。'},
-      ],
-    }
-  }
+  private title = 'Blogs'
+  private description = 'メモ書きのようなブログのようなものをちまちま載せていくページです。'
 }
 </script>
