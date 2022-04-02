@@ -160,6 +160,8 @@ export default {
   publicRuntimeConfig: {
     QIITA_ENDPOINT_URL: process.env.QIITA_ENDPOINT_URL,
     QIITA_API_KEY: process.env.QIITA_API_KEY,
+    WEATHER_ENDPOINT_URL: process.env.WEATHER_ENDPOINT_URL,
+    WEATHER_API_KEY: process.env.WEATHER_API_KEY,
   },
 
   router: {
