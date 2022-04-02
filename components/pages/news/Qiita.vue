@@ -5,18 +5,27 @@
     >
       <thead>
         <tr>
-          <th class="text-left">
-            Title
-          </th>
-          <th class="text-left">
-            Tags
-          </th>
-          <th class="text-left">
-            Likes
+          <th
+            v-for="(header, i) in headers"
+            :key="i"
+            class="text-left"
+          >
+            {{ header }}
           </th>
         </tr>
       </thead>
       <tbody>
+        <tr
+          v-if="!items.length"
+          class="text-center"
+        >
+          <td
+            :colspan="headers.length"
+          >
+            <MaterialsCircleLoader
+            />
+          </td>
+        </tr>
         <tr
           v-for="(item, i) in items"
           :key="i"
@@ -55,6 +64,12 @@ import { jumpLinkTo } from "~/lib/link"
 export default class Qiita extends Vue{
   @Prop({ type: Array, required: true })
   private items!: Array<object>
+
+  private headers = [
+    'Title',
+    'Tags',
+    'Likes',
+  ]
 
   private jumpLinkTo = jumpLinkTo
 }

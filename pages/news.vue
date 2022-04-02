@@ -75,15 +75,22 @@ export default class NewsPage extends Vue {
   private description = 'Qiitaや天気情報など、様々な情報をここにまとめて、暇なときに見られるようにするためのページです。'
   private tab = true
 
-  async asyncData({ $axios, $config }: { $axios: any, $config: any }) {
-    const qiita = await getQiitaPosts($config.QIITA_ENDPOINT_URL, $config.QIITA_API_KEY)
+  private qiita = []
+
+  mounted() {
+    getQiitaPosts(this.$config.QIITA_ENDPOINT_URL, this.$config.QIITA_API_KEY)
+      .then((res: any) => {
+        this.qiita = res
+      })
+  }
+
+  async asyncData({ $axios }: { $axios: any }) {
     // const currentWeather = await fetchCurrentWeatherInfo('Tokyo')
     // const threeWeather = await fetchThreeWeatherInfo('Tokyo')
     // 一旦ダミー
     const currentWeather = await $axios.get('/data/weather.json').then((res: any) => res.data)
     const threeWeather   = await $axios.get('/data/three_weather.json').then((res: any) => res.data)
     return {
-      qiita,
       currentWeather,
       threeWeather,
     }

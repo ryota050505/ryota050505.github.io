@@ -54,9 +54,14 @@
                 </v-divider>
               </template>
               <v-item
-                v-if="blogs.length==0"
+                v-if="blogs.length === 0 && q"
               >
                 <PagesBlogsNotExist/>
+              </v-item>
+              <v-item
+                v-if="blogs.length === 0 && !q"
+              >
+                <MaterialsCircleLoader/>
               </v-item>
             </v-list-item-group>
           </v-list>
@@ -81,30 +86,12 @@ import {
   Vue,
 } from 'nuxt-property-decorator'
 
+import {
+  blogsApi,
+} from '~/lib/blogsApi'
 import head from '~/mixins/head'
 
 @Component({
-  async asyncData({ $content, route }: { $content: any, route: any }) {
-    const {
-      q,
-    } = route.query
-
-    let query = $content(
-        'blog',
-        { deep: true }
-      )
-      .sortBy('createdAt', 'desc')
-
-    // 全文検索
-    if (q) query = query.search(q)
-
-    const blogs = await query.fetch()
-
-    return {
-      q,
-      blogs,
-    }
-  },
   watchQuery: [
     'q',
     'page',
@@ -117,6 +104,17 @@ export default class BlogsPage extends Vue {
 
   private TAG_ICON = mdiTag
   private CATEGORY_ICON = mdiFolder
+
+  private blogs = []
+  private q = ''
+
+  mounted() {
+    blogsApi(this.$content, this.$route)
+      .then((res) => {
+        this.q = res.q
+        this.blogs = res.blogs
+      })
+  }
 
   private title = 'Blogs'
   private description = 'メモ書きのようなブログのようなものをちまちま載せていくページです。'
