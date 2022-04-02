@@ -80,31 +80,31 @@ export default class NewsPage extends Vue {
   private threeWeather = []
 
   mounted() {
-    // getQiitaPosts(this.$config.QIITA_ENDPOINT_URL, this.$config.QIITA_API_KEY)
-    //   .then((res: any) => {
-    //     this.qiita = res
-    //   })
+    getQiitaPosts(this.$config.QIITA_ENDPOINT_URL, this.$config.QIITA_API_KEY)
+      .then((res: any) => {
+        this.qiita = res
+      })
 
-    // fetchCurrentWeatherInfo(this.$config.WEATHER_ENDPOINT_URL, this.$config.WEATHER_API_KEY, 'Tokyo')
-    //   .then((res: any) => {
-    //     this.currentWeather = res
-    //   })
+    fetchCurrentWeatherInfo(this.$config.WEATHER_ENDPOINT_URL, this.$config.WEATHER_API_KEY, 'Tokyo')
+      .then((res: any) => {
+        this.currentWeather = res
+      })
 
-    // fetchThreeWeatherInfo(this.$config.WEATHER_ENDPOINT_URL, this.$config.WEATHER_API_KEY, 'Tokyo')
-    //   .then((res: any) => {
-    //     this.threeWeather = res
-    //   })
+    fetchThreeWeatherInfo(this.$config.WEATHER_ENDPOINT_URL, this.$config.WEATHER_API_KEY, 'Tokyo')
+      .then((res: any) => {
+        this.threeWeather = res
+      })
   }
 
   async asyncData({ $axios }: { $axios: any }) {
     // 一旦ダミー
-    const currentWeather = await $axios.get('/data/weather.json').then((res: any) => res.data)
-    const threeWeather   = await $axios.get('/data/three_weather.json').then((res: any) => res.data)
-    console.log(threeWeather)
-    return {
-      currentWeather,
-      threeWeather,
-    }
+    // const currentWeather = await $axios.get('/data/weather.json').then((res: any) => res.data)
+    // const threeWeather   = await $axios.get('/data/three_weather.json').then((res: any) => res.data)
+    // console.log(threeWeather)
+    // return {
+    //   currentWeather,
+    //   threeWeather,
+    // }
   }
 }
 </script>
