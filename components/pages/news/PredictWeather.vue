@@ -38,8 +38,7 @@
           line-width="2"
           :gradient="gradients[5]"
           gradient-direction="top"
-        >
-        </v-sparkline>
+        />
       </v-carousel-item>
     </v-carousel>
   </v-card>
@@ -52,10 +51,13 @@ import {
   Vue,
 } from 'nuxt-property-decorator'
 
+import {
+  ForestWeather,
+} from '~/types/Weather'
 @Component
 export default class Qiita extends Vue{
   @Prop({ type: Object })
-  private items!: object
+  private items!: ForestWeather
 
   private model: number = 0
 
@@ -70,7 +72,6 @@ export default class Qiita extends Vue{
 
   get showItem() {
     const result = this.items.list.map((cloud: any) => cloud.main.temp)
-    console.log(result.slice(0, 5))
     return this.sliceByNumber(result, 5)
   }
 
@@ -81,9 +82,8 @@ export default class Qiita extends Vue{
 
   private sliceByNumber(array: Array<object>, number: number) {
     const length = Math.ceil(array.length / number)
-    return new Array(length)
-    .fill()
-    .map((_, i) => array.slice(i * number, (i + 1) * number));
+    const res = new Array(length).fill(0).map((_, i) => array.slice(i * number, (i + 1) * number))
+    return res
   }
 
   private headers = [

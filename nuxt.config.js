@@ -47,10 +47,6 @@ export default {
       { rel: 'icon', type: 'image/png', sizes: '16x16', href: `/icon-16x16.png` },
       { rel: 'icon', type: 'image/png', sizes: '32x32', href: `/icon-32x32.png` },
       { rel: 'manifest', href: `/manifest.json` },
-      {
-        rel: 'stylesheet',
-        href: 'https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css'
-      },
     ],
   },
 
