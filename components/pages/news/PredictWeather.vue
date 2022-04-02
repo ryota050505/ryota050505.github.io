@@ -1,46 +1,74 @@
 <template>
   <v-card
-    class="mx-auto text-center"
+    class="mx-auto"
+    max-width="400"
+    light
   >
-    <!-- <v-card-title class="text-center">
-      {{ items.city.name }}
-    </v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="items.list"
-      :items-per-page="5"
-      class="elevation-1"
-    >
-      <template
-        #item.main.temp_max="{ item }"
-      >
-        <v-chip
-          :color="getColor(item.main.temp_max)"
+    <v-list-item two-line>
+      <v-list-item-content>
+        <v-list-item-title class="text-h5">
+          {{ items.city.name }}
+        </v-list-item-title>
+        <v-list-item-subtitle>Mon, 12:30 PM, Mostly sunny</v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+
+    <v-card-text>
+      <v-row align="center">
+        <v-col
+          class="text-h2"
+          cols="6"
         >
-          {{ item.main.temp_max }}
-        </v-chip>
-      </template>
-    </v-data-table> -->
-    <v-carousel v-model="model">
-      <v-carousel-item
-        v-for="(spark, i) in showItem"
+          23&deg;C
+        </v-col>
+        <v-col cols="6">
+          <v-img
+            src="https://cdn.vuetifyjs.com/images/cards/sun.png"
+            alt="Sunny image"
+            width="92"
+          ></v-img>
+        </v-col>
+      </v-row>
+    </v-card-text>
+
+    <v-list-item>
+      <v-list-item-icon>
+        <v-icon>mdi-send</v-icon>
+      </v-list-item-icon>
+      <v-list-item-subtitle>23 km/h</v-list-item-subtitle>
+    </v-list-item>
+
+    <v-list-item>
+      <v-list-item-icon>
+        <v-icon>mdi-cloud-download</v-icon>
+      </v-list-item-icon>
+      <v-list-item-subtitle>48%</v-list-item-subtitle>
+    </v-list-item>
+
+    <v-slider
+      v-model="time"
+      :max="6"
+      :tick-labels="labels"
+      class="mx-4"
+      ticks
+    />
+
+    <v-list class="transparent">
+      <v-list-item
+        v-for="(item, i) in items.list"
         :key="i"
       >
-        <v-sparkline
-          height="100%"
-          label-size="5"
-          :value="spark"
-          :labels="showLabel[i]"
-          auto-draw
-          auto-line-width
-          show-labels
-          smooth
-          line-width="2"
-          :gradient="gradients[5]"
-          gradient-direction="top"
-        />
-      </v-carousel-item>
-    </v-carousel>
+        <v-list-item-title>{{ item.dt_txt }}</v-list-item-title>
+
+        <v-list-item-icon>
+          <v-icon>{{ item.weather.icon }}</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-subtitle class="text-right">
+          {{ item.main.temp_min + '&deg;C' + '/' + item.main.temp_max + '&deg;C'}}
+        </v-list-item-subtitle>
+      </v-list-item>
+    </v-list>
   </v-card>
 </template>
 
@@ -55,7 +83,7 @@ import {
   ForestWeather,
 } from '~/types/Weather'
 @Component
-export default class Qiita extends Vue{
+export default class PredictWeather extends Vue{
   @Prop({ type: Object })
   private items!: ForestWeather
 

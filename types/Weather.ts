@@ -43,6 +43,66 @@ type WeatherDetail = {
   dt_txt: string
 }
 
+interface Minutely {
+  dt: number
+  precipitation: number
+}
+
+interface Temp {
+  day: number
+  min: number
+  max: number
+  night: number
+  eve: number
+  morn: number
+}
+
+interface FeelsLike {
+  day: number
+  night: number
+  eve: number
+  morn: number
+}
+
+export interface Base {
+  dt: number
+  pressure: number
+  humidity: number
+  dew_point: number
+  uvi: number
+  clouds: number
+  visibility: number
+  wind_speed: number
+  wind_deg: number
+  wind_gust: number
+  weather: Weather[]
+}
+
+export interface Current extends Base {
+  sunrise: number
+  sunset: number
+  temp: number
+  feels_like: number
+}
+
+export interface Hourly extends Base {
+  temp: number
+  feels_like: number
+  pop: number
+}
+
+export interface Daily extends Base {
+  sunrise: number
+  sunset: number
+  moonrise: number
+  moonset: number
+  moon_phase: number
+  temp: Temp
+  feels_like: FeelsLike
+  pop: number
+  rain: number
+}
+
 type Coord = {
   lat: number
   lon: number
@@ -71,4 +131,15 @@ export type CurrentWeather = {
   id: number
   name: string
   main: Main
+}
+
+export type OnecallWeather = {
+  lat: number
+  lon: number
+  timezone: string
+  timezone_offset: number
+  current: Current
+  minutely: Minutely[]
+  hourly: Hourly[]
+  daily: Daily[]
 }
