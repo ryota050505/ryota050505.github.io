@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { LatLon, PREFECTURAL_SEAT_LIST } from '~/constants/Weather'
+
+import { PREFECTURAL_SEAT_LIST } from '~/constants/Weather'
 
 export const fetchCurrentWeatherInfo = async (OPEN_WEATHER_URL: string, API_KEY: string, city: string) => {
   try {
