@@ -6,26 +6,13 @@
     hide-on-scroll
   >
     <v-container class="py-0 fill-height">
-
       <MaterialsLogo
       />
 
-      <template
+      <MaterialsHeaderLink
         v-for="(link, i) in linkList"
-      >
-        <MaterialsHeaderLink
-          :key="i"
-          :link="link"
-        />
-      </template>
-
-      <v-spacer/>
-
-      <MaterialsSearchField
-        :query.sync="query"
-      />
-      <MaterialsSearchButton
-        :query="query"
+        :key="i"
+        :link="link"
       />
     </v-container>
   </v-app-bar>
@@ -45,8 +32,6 @@ import {
 } from '~/types/LinkList'
 @Component
 export default class Header extends Vue {
-  protected query: string = ""
-
   protected linkList: LinkList = LINK_LIST
 }
 </script>

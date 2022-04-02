@@ -110,21 +110,15 @@ import {
   TIMELINE_KEY,
   TIMELINE_TITLE,
 } from '@/constants/Profile'
-import { LocalHeader } from '~/types/LocalHeader'
-@Component
+import HEAD from '~/mixins/head'
+@Component({
+  mixins: [
+    HEAD,
+  ],
+})
 export default class ProfilePage extends Vue {
-  head(): LocalHeader {
-    return {
-      title: 'Profile',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: '今までの経歴の概略を載せています。ボタンを押していただくことで、経歴をフィルタリングできます。',
-        }
-      ]
-    }
-  }
+  private title = 'Profile'
+  private description = '今までの経歴の概略を載せています。ボタンを押すことで経歴をフィルタリングできます。'
 
   private denseTrigger = this.$vuetify.breakpoint.smAndDown
 

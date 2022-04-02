@@ -1,6 +1,8 @@
 <template>
-  <v-card>
-    <v-card-title class="text-center">
+  <v-card
+    class="mx-auto text-center"
+  >
+    <!-- <v-card-title class="text-center">
       {{ items.city.name }}
     </v-card-title>
     <v-data-table
@@ -18,7 +20,28 @@
           {{ item.main.temp_max }}
         </v-chip>
       </template>
-    </v-data-table>
+    </v-data-table> -->
+    <v-carousel v-model="model">
+      <v-carousel-item
+        v-for="(spark, i) in showItem"
+        :key="i"
+      >
+        <v-sparkline
+          height="100%"
+          label-size="5"
+          :value="spark"
+          :labels="showLabel[i]"
+          auto-draw
+          auto-line-width
+          show-labels
+          smooth
+          line-width="2"
+          :gradient="gradients[5]"
+          gradient-direction="top"
+        >
+        </v-sparkline>
+      </v-carousel-item>
+    </v-carousel>
   </v-card>
 </template>
 
@@ -33,6 +56,35 @@ import {
 export default class Qiita extends Vue{
   @Prop({ type: Object })
   private items!: object
+
+  private model: number = 0
+
+  private gradients = [
+    ['#222'],
+    ['#42b3f4'],
+    ['red', 'orange', 'yellow'],
+    ['purple', 'violet'],
+    ['#00c6ff', '#F0F', '#FF0'],
+    ['#f72047', '#ffd200', '#1feaea'],
+  ]
+
+  get showItem() {
+    const result = this.items.list.map((cloud: any) => cloud.main.temp)
+    console.log(result.slice(0, 5))
+    return this.sliceByNumber(result, 5)
+  }
+
+  get showLabel() {
+    const result = this.items.list.map((cloud: any) => cloud.dt_txt)
+    return this.sliceByNumber(result, 5)
+  }
+
+  private sliceByNumber(array: Array<object>, number: number) {
+    const length = Math.ceil(array.length / number)
+    return new Array(length)
+    .fill()
+    .map((_, i) => array.slice(i * number, (i + 1) * number));
+  }
 
   private headers = [
     { text: '現在の気温', value: 'main.temp' },

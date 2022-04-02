@@ -63,50 +63,48 @@ import {
   fetchCurrentWeatherInfo,
   fetchThreeWeatherInfo,
 } from '~/lib/weatherApi'
-import {
-  LocalHeader
-} from '~/types/LocalHeader'
-@Component
+import head from '~/mixins/head'
+@Component({
+  mixins: [
+    head,
+  ],
+})
 export default class NewsPage extends Vue {
 
-  WEEK = ["（日）","（月）","（火）","（水）","（木）","（金）","（土）"]
-  items: any = []
-  posts: any = []
-  date: any = []
+  private title = 'News'
+  private description = 'Qiitaや天気情報など、様々な情報をここにまとめて、暇なときに見られるようにするためのページです。'
+  private tab: number = 0
 
-  headers = [
-    { text: "id", value: "postId" },
-    { text: "name", value: "name"},
-    { text: "email", value: "email"},
-  ]
+  private qiita = []
+  private currentWeather = []
+  private threeWeather = []
 
-  head(): LocalHeader {
-    return {
-      title: 'News',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'Qiitaや天気情報など、様々な情報をここにまとめて、暇なときに見られるようにするためのページです。',
-        }
-      ]
-    }
+  mounted() {
+    getQiitaPosts(this.$config.QIITA_ENDPOINT_URL, this.$config.QIITA_API_KEY)
+      .then((res: any) => {
+        this.qiita = res
+      })
+
+    fetchCurrentWeatherInfo(this.$config.WEATHER_ENDPOINT_URL, this.$config.WEATHER_API_KEY, 'Tokyo')
+      .then((res: any) => {
+        this.currentWeather = res
+      })
+
+    fetchThreeWeatherInfo(this.$config.WEATHER_ENDPOINT_URL, this.$config.WEATHER_API_KEY, 'Tokyo')
+      .then((res: any) => {
+        this.threeWeather = res
+      })
   }
 
-  async asyncData({ $axios, $config }: { $axios: any, $config: any }) {
-    const qiita = await getQiitaPosts($config.QIITA_ENDPOINT_URL, $config.QIITA_API_KEY)
-    // const currentWeather = await fetchCurrentWeatherInfo('Tokyo')
-    // const threeWeather = await fetchThreeWeatherInfo('Tokyo')
+  async asyncData({ $axios }: { $axios: any }) {
     // 一旦ダミー
-    const currentWeather = await $axios.get('/data/weather.json').then((res: any) => res.data)
-    const threeWeather   = await $axios.get('/data/three_weather.json').then((res: any) => res.data)
-    return {
-      qiita,
-      currentWeather,
-      threeWeather,
-    }
+    // const currentWeather = await $axios.get('/data/weather.json').then((res: any) => res.data)
+    // const threeWeather   = await $axios.get('/data/three_weather.json').then((res: any) => res.data)
+    // console.log(threeWeather)
+    // return {
+    //   currentWeather,
+    //   threeWeather,
+    // }
   }
-
-  private tab: boolean = true
 }
 </script>

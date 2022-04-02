@@ -25,16 +25,6 @@
           />
         </template>
       </MaterialsNavList>
-
-      <v-spacer/>
-
-      <MaterialsSearchField
-        :query.sync="query"
-        :max-width="MAX_WIDTH_SP"
-      />
-      <MaterialsSearchButton
-        :query="query"
-      />
     </v-container>
   </v-app-bar>
 </template>
@@ -49,6 +39,5 @@ import Header from './Header.vue'
 @Component
 export default class HeaderSp extends Header {
   private drawer = false
-  private MAX_WIDTH_SP = 100
 }
 </script>

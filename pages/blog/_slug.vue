@@ -103,7 +103,7 @@ import {
   Vue,
 } from 'nuxt-property-decorator'
 
-import { LocalHeader } from '~/types/LocalHeader'
+import head from '~/mixins/head'
 
 @Component({
   async asyncData({ $content, params}: {$content: any, params: any }) {
@@ -111,7 +111,7 @@ import { LocalHeader } from '~/types/LocalHeader'
 
     const [prev, next] = await $content('blog', { deep: true })
       .only(['title', 'slug'])
-      .sortBy('createdAt', 'asc')
+      .sortBy('position', 'asc')
       .surround(params.slug)
       .fetch()
 
@@ -133,27 +133,19 @@ import { LocalHeader } from '~/types/LocalHeader'
       prev,
       next,
       breadcrumbs,
+      title: blog.title,
+      description: blog.description
     }
   },
+  mixins: [
+    head,
+  ],
 })
 export default class BlogDetail extends Vue {
 
   private blog?: any
 
   private UPDATE_ICON = mdiUpdate
-
-  head(): LocalHeader {
-    return {
-      title: this.blog.title,
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: this.blog.description
-        }
-      ],
-    }
-  }
 
   mounted() {
     if (!process.browser) return
@@ -187,6 +179,7 @@ article {
     border-left: solid 5px rgb(238, 213, 144);
   }
   & p {
+    line-height: 180%;
     @include sp {
       font-size: 0.9em;
     }
@@ -198,21 +191,6 @@ article {
       }
     }
   }
-}
-
-.v-application p {
-  padding: unset;
-}
-
-.v-application code {
-  all: unset;
-}
-
-.v-application p code {
-  padding: 0.1em 0.5em;
-  background-color: #e6dedc !important;
-  border-radius: 0.3em;
-  color: rgb(131, 69, 40) !important;
 }
 
 .v-application div pre code {
@@ -231,8 +209,19 @@ article {
   margin:0 0 0 auto;
 }
 
-article p {
-  line-height: 180%;
+.v-application {
+  & code {
+    all: unset;
+  }
+  & p {
+    padding: unset;
+    & code {
+      padding: 0.1em 0.5em;
+      background-color: #e6dedc !important;
+      border-radius: 0.3em;
+      color: rgb(131, 69, 40) !important;
+    }
+  }
 }
 
 blockquote {
@@ -243,35 +232,35 @@ blockquote {
   background: #efefef;
   color: rgb(134, 133, 133);
   border-left: 4px solid #9dd4ff;
-}
 
-blockquote:before{
-  display: inline-block;
-  position: absolute;
-  top: 5px;
-  left: 3px;
-  content: "“";
-  font-family: sans-serif;
-  color: #cfcfcf;
-  font-size: 90px;
-  line-height: 1;
-}
+  &:before {
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    left: 3px;
+    content: "“";
+    font-family: sans-serif;
+    color: #cfcfcf;
+    font-size: 90px;
+    line-height: 1;
+  }
 
-blockquote p {
-  padding: 0;
-  margin: 10px 0;
-  line-height: 1.7;
-}
+  & p {
+    padding: 0;
+    margin: 10px 0;
+    line-height: 1.7;
 
-.v-application blockquote p code {
-  color: rgb(212, 150, 122) !important;
-}
+    &code {
+      color: rgb(212, 150, 122) !important;
+    }
+  }
 
-blockquote cite {
-  display: block;
-  text-align: right;
-  color: #888888;
-  font-size: 0.9em;
+  & cite {
+    display: block;
+    text-align: right;
+    color: #888888;
+    font-size: 0.9em;
+  }
 }
 
 .p-toc-container {

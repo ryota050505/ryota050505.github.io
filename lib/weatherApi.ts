@@ -1,11 +1,8 @@
 import axios from 'axios'
 
-const OPEN_WEATHER_URL = process.env.WEATHER_ENDPOINT_URL
-const OPEN_WEATHER_API_KEY = process.env.WEATHER_API_KEY
-
-export const fetchCurrentWeatherInfo = async (city: string) => {
+export const fetchCurrentWeatherInfo = async (OPEN_WEATHER_URL: string, API_KEY: string, city: string) => {
   try {
-    const res = await axios.get(`${OPEN_WEATHER_URL}weather?q=${city},jp&units=metric&appid=${OPEN_WEATHER_API_KEY}`,
+    const res = await axios.get(`${OPEN_WEATHER_URL}weather?q=${city},jp&units=metric&appid=${API_KEY}`,
       {
         headers:
           {
@@ -14,17 +11,15 @@ export const fetchCurrentWeatherInfo = async (city: string) => {
       }
     )
     const weather = parseWeatherInfo(res.data)
-    console.log("current")
-    console.log(weather)
     return weather
   } catch(err) {
     console.error(err)
   }
 }
 
-export const fetchThreeWeatherInfo = async (city: string) => {
+export const fetchThreeWeatherInfo = async (OPEN_WEATHER_URL: string, API_KEY: string, city: string) => {
   try {
-    const res = await axios.get(`${OPEN_WEATHER_URL}forecast?q=${city},jp&units=metric&appid=${OPEN_WEATHER_API_KEY}`,
+    const res = await axios.get(`${OPEN_WEATHER_URL}forecast?q=${city},jp&units=metric&appid=${API_KEY}`,
       {
         headers:
           {
@@ -32,8 +27,6 @@ export const fetchThreeWeatherInfo = async (city: string) => {
           }
       }
     )
-    console.log("three")
-    console.log(res.data)
     return res.data
   } catch(err) {
     console.error(err)

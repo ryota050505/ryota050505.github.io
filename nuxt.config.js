@@ -21,7 +21,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: 'とある大学院生の備忘録的なポートフォリオ的なサイトです。'
+        content: '備忘録的に何かを書いていくサイトにしようと思っています。今までの開発経験や、それに付随して培ったスキル等を載せていたり、知識としていつでも見直せるようにブログとして色々書いていきます。'
       },
       { name: 'format-detection', content: 'telephone=no' },
       { hid: 'og:site_name', property: 'og:site_name', content: 'takoyaki' },
@@ -31,9 +31,9 @@ export default {
       {
         hid: 'og:description',
         name: 'og:description',
-        content: 'とある大学院生の備忘録的なポートフォリオ的なサイトです。'
+        content: '備忘録的に何かを書いていくサイトにしようと思っています。今までの開発経験や、それに付随して培ったスキル等を載せていたり、知識としていつでも見直せるようにブログとして色々書いていきます。'
       },
-      { hid: 'og:image', property: 'og:image', content: `/icon-512x512.png` },
+      { hid: 'og:image', property: 'og:image', content: `https://www.ordev.link/takoyaki.png` },
       { hid: 'apple-mobile-web-app-title', property: 'apple-mobile-web-app-title', content: 'takoyaki' },
       { hid: 'twitter:card', content: 'summary_large_image' },
     ],
@@ -160,9 +160,12 @@ export default {
   publicRuntimeConfig: {
     QIITA_ENDPOINT_URL: process.env.QIITA_ENDPOINT_URL,
     QIITA_API_KEY: process.env.QIITA_API_KEY,
+    WEATHER_ENDPOINT_URL: process.env.WEATHER_ENDPOINT_URL,
+    WEATHER_API_KEY: process.env.WEATHER_API_KEY,
   },
 
   router: {
+    prefetchLinks: false, // preloadのwarningを消すため
     trailingSlash: true,
     middleware: 'trailingSlashRedirect',
   },
