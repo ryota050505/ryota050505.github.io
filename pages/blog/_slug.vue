@@ -111,7 +111,7 @@ import head from '~/mixins/head'
 
     const [prev, next] = await $content('blog', { deep: true })
       .only(['title', 'slug'])
-      .sortBy('createdAt', 'asc')
+      .sortBy('position', 'asc')
       .surround(params.slug)
       .fetch()
 

@@ -163,6 +163,7 @@ export default {
   },
 
   router: {
+    prefetchLinks: false, // preloadのwarningを消すため
     trailingSlash: true,
     middleware: 'trailingSlashRedirect',
   },

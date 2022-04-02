@@ -11,7 +11,48 @@
         <v-container>
           <v-list>
             <v-list-item-group>
-              <template v-for="(blog, blogIndex) in blogs">
+              <v-list-item
+                dense
+              >
+                <v-list-item-content>
+                  <v-select
+                    v-model="categorySearchList"
+                    label="Category"
+                    :items="categoryList"
+                    item-text="showName"
+                    item-value="category"
+                    multiple
+                    chips
+                    hide-details
+                    :prepend-icon="CATEGORY_ICON"
+                    clearable
+                    small-chips
+                    deletable-chips
+                  />
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item
+                dense
+              >
+                <v-list-item-content>
+                  <v-select
+                    v-model="tagSearchList"
+                    label="Tag"
+                    :items="tagList"
+                    item-text="showName"
+                    item-value="tag"
+                    multiple
+                    chips
+                    hide-details
+                    :prepend-icon="TAG_ICON"
+                    clearable
+                    small-chips
+                    deletable-chips
+                  />
+                </v-list-item-content>
+              </v-list-item>
+              <v-divider/>
+              <template v-for="(blog, blogIndex) in showBlogList">
                 <v-list-item
                   :key="blogIndex"
                   :to="blog.path"
@@ -48,21 +89,25 @@
                 </v-list-item>
 
                 <v-divider
-                  v-if="blogIndex != blogs.length-1"
+                  v-if="blogIndex != showBlogList.length-1"
                   :key="'divider-' + blogIndex"
-                >
-                </v-divider>
+                />
               </template>
-              <v-item
-                v-if="blogs.length === 0 && q"
+              <v-list-item
+                v-if="showBlogList.length === 0 && !isLoading"
               >
-                <PagesBlogsNotExist/>
-              </v-item>
-              <v-item
-                v-if="blogs.length === 0 && !q"
+                <v-list-item-content>
+                  <PagesBlogsNotExist/>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item
+                v-if="showBlogList.length === 0 && isLoading"
+                class="text-center"
               >
-                <MaterialsCircleLoader/>
-              </v-item>
+                <v-list-item-content>
+                  <MaterialsCircleLoader/>
+                </v-list-item-content>
+              </v-list-item>
             </v-list-item-group>
           </v-list>
         </v-container>
@@ -87,15 +132,14 @@ import {
 } from 'nuxt-property-decorator'
 
 import {
-  blogsApi,
+  fetchBlogList, fetchCategoryList, fetchTagList,
 } from '~/lib/blogsApi'
 import head from '~/mixins/head'
-
+import {
+  Blog,
+  BlogList
+} from '~/types/Blog'
 @Component({
-  watchQuery: [
-    'q',
-    'page',
-  ],
   mixins: [
     head,
   ],
@@ -105,15 +149,52 @@ export default class BlogsPage extends Vue {
   private TAG_ICON = mdiTag
   private CATEGORY_ICON = mdiFolder
 
-  private blogs = []
-  private q = ''
+  private blogList: BlogList = []
+
+  private tagList: Array<string> = []
+  private categoryList: Array<string> = []
+
+  private tagSearchList: Array<string> = []
+  private categorySearchList: Array<string> = []
+
+  private isLoading = true
 
   mounted() {
-    blogsApi(this.$content, this.$route)
+    fetchBlogList(this.$content)
       .then((res) => {
-        this.q = res.q
-        this.blogs = res.blogs
+        this.blogList = res.blogList
+        this.isLoading = false
       })
+
+    fetchCategoryList(this.$content)
+      .then((res) => {
+        this.categoryList = res
+      })
+
+    fetchTagList(this.$content)
+      .then((res) => {
+        this.tagList = res
+      })
+  }
+
+  get showBlogList() {
+    let result = this.blogList
+    if (this.categorySearchList.length !== 0) {
+      result = result
+        .filter(
+          (blog: Blog) => this.categorySearchList.includes(blog.category)
+        )
+    }
+    if (this.tagSearchList.length !== 0) {
+      result = result
+        .filter(
+          (blog: Blog) => blog.tags
+          .some(
+            (tag) => this.tagSearchList.includes(tag)
+          )
+        )
+    }
+    return result
   }
 
   private title = 'Blogs'
