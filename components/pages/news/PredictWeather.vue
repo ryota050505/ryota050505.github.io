@@ -35,7 +35,8 @@
           auto-line-width
           show-labels
           smooth
-          :gradient="gradients"
+          line-width="2"
+          :gradient="gradients[5]"
           gradient-direction="top"
         >
         </v-sparkline>

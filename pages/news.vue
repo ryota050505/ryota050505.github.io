@@ -80,10 +80,10 @@ export default class NewsPage extends Vue {
   private threeWeather = []
 
   mounted() {
-    getQiitaPosts(this.$config.QIITA_ENDPOINT_URL, this.$config.QIITA_API_KEY)
-      .then((res: any) => {
-        this.qiita = res
-      })
+    // getQiitaPosts(this.$config.QIITA_ENDPOINT_URL, this.$config.QIITA_API_KEY)
+    //   .then((res: any) => {
+    //     this.qiita = res
+    //   })
 
     // fetchCurrentWeatherInfo(this.$config.WEATHER_ENDPOINT_URL, this.$config.WEATHER_API_KEY, 'Tokyo')
     //   .then((res: any) => {
