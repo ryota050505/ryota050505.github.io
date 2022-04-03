@@ -18,7 +18,7 @@
             Qiita
           </v-tab>
           <v-tab>
-            OnecallWeather
+            Weather
           </v-tab>
         </v-tabs>
 
@@ -72,9 +72,28 @@ import head from '~/mixins/head'
 })
 export default class NewsPage extends Vue {
 
-  private selected = '京都'
+  private selected = PREFECTURE_LIST.KYOTO
 
   private selectorValueList = Object.entries(PREFECTURE_LIST).map(([_, value]) => value)
+
+  private title = 'News'
+  private description = 'Qiitaや天気情報など、様々な情報をここにまとめて、暇なときに見られるようにするためのページです。'
+  private tab: number = 0
+
+  private qiita = []
+  private onecallWeather = {}
+
+  mounted() {
+    getQiitaPosts(this.$config.QIITA_ENDPOINT_URL, this.$config.QIITA_API_KEY)
+      .then((res: any) => {
+        this.qiita = res
+      })
+
+    fetchOnecallWeatherInfo(this.$config.WEATHER_ENDPOINT_URL, this.$config.WEATHER_API_KEY, PREFECTURE_LIST.KYOTO)
+      .then((res: any) => {
+        this.onecallWeather = res
+      })
+  }
 
   get SelectorItem() {
     return this.selectorValueList
@@ -92,56 +111,12 @@ export default class NewsPage extends Vue {
     return this.qiita
   }
 
-  private title = 'News'
-  private description = 'Qiitaや天気情報など、様々な情報をここにまとめて、暇なときに見られるようにするためのページです。'
-  private tab: number = 0
-
-  private qiita = []
-  private currentWeather = []
-  private threeWeather = []
-  private onecallWeather = {}
-
-  mounted() {
-    getQiitaPosts(this.$config.QIITA_ENDPOINT_URL, this.$config.QIITA_API_KEY)
-      .then((res: any) => {
-        this.qiita = res
-      })
-
-    // fetchCurrentWeatherInfo(this.$config.WEATHER_ENDPOINT_URL, this.$config.WEATHER_API_KEY, 'Tokyo')
-    //   .then((res: any) => {
-    //     this.currentWeather = res
-    //   })
-
-    // fetchThreeWeatherInfo(this.$config.WEATHER_ENDPOINT_URL, this.$config.WEATHER_API_KEY, 'Tokyo')
-    //   .then((res: any) => {
-    //     this.threeWeather = res
-    //   })
-
-    fetchOnecallWeatherInfo(this.$config.WEATHER_ENDPOINT_URL, this.$config.WEATHER_API_KEY, PREFECTURE_LIST.KYOTO)
-      .then((res: any) => {
-        this.onecallWeather = res
-      })
-  }
-
   @Watch('selected')
   onChangeSelected() {
     fetchOnecallWeatherInfo(this.$config.WEATHER_ENDPOINT_URL, this.$config.WEATHER_API_KEY, this.selected)
       .then((res: any) => {
         this.onecallWeather = res
       })
-  }
-
-  async asyncData({ $axios }: { $axios: any }) {
-    // 一旦ダミー
-    const currentWeather = await $axios.get('/data/weather.json').then((res: any) => res.data)
-    const threeWeather   = await $axios.get('/data/three_weather.json').then((res: any) => res.data)
-    // const onecallWeather = await $axios.get('/data/one_call.json').then((res: any) => res.data)
-    // console.log(onecallWeather)
-    return {
-      currentWeather,
-      threeWeather,
-      // onecallWeather,
-    }
   }
 }
 </script>

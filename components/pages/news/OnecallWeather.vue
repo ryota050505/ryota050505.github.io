@@ -3,11 +3,24 @@
     max-width="800"
     class="mx-auto"
   >
+    <v-radio-group
+      v-model="selectedWeatherType"
+      row
+    >
+      <v-radio
+        label="Daily"
+        :value="FetchType.DAILY"
+      >
+      </v-radio>
+      <v-radio
+        label="Hourly"
+        :value="FetchType.HOURLY"
+      >
+      </v-radio>
+    </v-radio-group>
     <v-slide-group
-      v-model="model"
-      show-arrows
       center-active
-      class="pa-4"
+      class=""
     >
       <v-slide-item
         v-slot="{active, toggle}"
@@ -20,7 +33,7 @@
         />
       </v-slide-item>
       <v-slide-item
-        v-for="(item, i) in daily"
+        v-for="(item, i) in Weather"
         :key="i"
         v-slot="{active, toggle}"
       >
@@ -43,6 +56,10 @@ import {
 } from 'nuxt-property-decorator'
 
 import {
+  Current,
+  Daily,
+  FetchType,
+  Hourly,
   OnecallWeather,
 } from '~/types/Weather'
 @Component
@@ -53,18 +70,40 @@ export default class OnecallWeatherClass extends Vue{
   @Prop({ type: String })
   private city!: string
 
-  get Item() {
+  private selectedWeatherType = FetchType.DAILY
+
+  private FetchType = FetchType
+
+  get WeatherType(): FetchType {
+    return this.selectedWeatherType
+  }
+
+  get Weather(): Daily[] | Hourly[] {
+    switch(this.WeatherType) {
+      case FetchType.DAILY:
+        return this.daily
+      case FetchType.HOURLY:
+        return this.hourly
+      default:
+        throw new Error('No such WeatherType => ' + this.WeatherType)
+    }
+  }
+
+
+  get Item(): OnecallWeather {
     return this.item
   }
 
-  get current() {
+  get current(): Current {
     return this.item.current
   }
 
-  get daily() {
+  get daily(): Daily[] {
     return this.item.daily
   }
 
-  private model = 0
+  get hourly(): Hourly[] {
+    return this.item.hourly
+  }
 }
 </script>

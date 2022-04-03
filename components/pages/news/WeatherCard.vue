@@ -138,7 +138,7 @@ export default class OnecallWeatherClass extends Vue{
     const date = this.currentDateTime
     const dateString = date.toDateString()
     const timeString = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
-    return (this.implementsCurrent(this.weather) ? dateString + ' ' + timeString : dateString)
+    return ((this.implementsCurrent(this.weather) || this.implementsHourly(this.weather)) ? dateString + ' ' + timeString : dateString)
   }
 
   get City() {
