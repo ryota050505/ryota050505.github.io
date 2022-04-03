@@ -10,8 +10,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - takoyaki',
-    title: '',
+    titleTemplate: '%s',
+    title: 'TAKOYAKI',
     htmlAttrs: {
       lang: 'ja',
     },
@@ -24,25 +24,21 @@ export default {
         content: '備忘録的に何かを書いていくサイトにしようと思っています。今までの開発経験や、それに付随して培ったスキル等を載せていたり、知識としていつでも見直せるようにブログとして色々書いていきます。'
       },
       { name: 'format-detection', content: 'telephone=no' },
-      { hid: 'og:site_name', property: 'og:site_name', content: 'takoyaki' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'TAKOYAKI' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
       { hid: 'og:url', property: 'og:url', content: 'https://www.ordev.link/' },
-      { hid: 'og:title', property: 'og:title', content: 'takoyaki' },
+      { hid: 'og:title', property: 'og:title', content: 'TAKOYAKI' },
       {
         hid: 'og:description',
         name: 'og:description',
         content: '備忘録的に何かを書いていくサイトにしようと思っています。今までの開発経験や、それに付随して培ったスキル等を載せていたり、知識としていつでも見直せるようにブログとして色々書いていきます。'
       },
       { hid: 'og:image', property: 'og:image', content: `https://www.ordev.link/takoyaki.png` },
-      { hid: 'apple-mobile-web-app-title', property: 'apple-mobile-web-app-title', content: 'takoyaki' },
+      { hid: 'apple-mobile-web-app-title', property: 'apple-mobile-web-app-title', content: 'TAKOYAKI' },
       { hid: 'twitter:card', content: 'summary_large_image' },
     ],
     link: [
-      {
-        rel: 'icon',
-        type: 'image/x-icon',
-        href: `/favicon.ico`,
-      },
+      { rel: 'icon', type: 'image/x-icon', href: `/favicon.ico` },
       { rel: 'apple-touch-icon', sizes: '180x180', href: `/apple-touch-icon.png` },
       { rel: 'icon', type: 'image/png', sizes: '16x16', href: `/icon-16x16.png` },
       { rel: 'icon', type: 'image/png', sizes: '32x32', href: `/icon-32x32.png` },
