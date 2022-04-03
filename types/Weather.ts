@@ -143,3 +143,8 @@ export type OnecallWeather = {
   hourly: Hourly[]
   daily: Daily[]
 }
+
+export enum FetchType {
+  DAILY="Daily",
+  HOURLY="Hourly",
+}
