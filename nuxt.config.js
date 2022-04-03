@@ -11,7 +11,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s',
-    title: 'TAKOYAKI',
+    title: 'ORDEV',
     htmlAttrs: {
       lang: 'ja',
     },
@@ -24,17 +24,17 @@ export default {
         content: '備忘録的に何かを書いていくサイトにしようと思っています。今までの開発経験や、それに付随して培ったスキル等を載せていたり、知識としていつでも見直せるようにブログとして色々書いていきます。'
       },
       { name: 'format-detection', content: 'telephone=no' },
-      { hid: 'og:site_name', property: 'og:site_name', content: 'TAKOYAKI' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'ORDEV' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
       { hid: 'og:url', property: 'og:url', content: 'https://www.ordev.link/' },
-      { hid: 'og:title', property: 'og:title', content: 'TAKOYAKI' },
+      { hid: 'og:title', property: 'og:title', content: 'ORDEV' },
       {
         hid: 'og:description',
         name: 'og:description',
         content: '備忘録的に何かを書いていくサイトにしようと思っています。今までの開発経験や、それに付随して培ったスキル等を載せていたり、知識としていつでも見直せるようにブログとして色々書いていきます。'
       },
       { hid: 'og:image', property: 'og:image', content: `https://www.ordev.link/takoyaki.png` },
-      { hid: 'apple-mobile-web-app-title', property: 'apple-mobile-web-app-title', content: 'TAKOYAKI' },
+      { hid: 'apple-mobile-web-app-title', property: 'apple-mobile-web-app-title', content: 'ORDEV' },
       { hid: 'twitter:card', content: 'summary_large_image' },
     ],
     link: [
