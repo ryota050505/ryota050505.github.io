@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[21],{654:function(t,e,n){"use strict";n.r(e);var l=n(163),o=n(40),component=Object(o.a)({},(function(){var t=this;return(0,t._self._c)(l.b,{class:t.$vuetify.breakpoint.mobile?"text-body-2":"text-body-1",attrs:{height:"100%"}},[t._t("default")],2)}),[],!1,null,null,null);e.default=component.exports}}]);
