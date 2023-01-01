@@ -18,18 +18,6 @@ export const LINK_LIST :LinkList = [
     color: 'green accent-3',
   },
   {
-    title: 'Profile',
-    to: '/profile',
-    icon: mdiFaceManProfile,
-    color: 'brown lighten-1',
-  },
-  {
-    title: 'Skill',
-    to: '/skill',
-    icon: mdiLaptop,
-    color: 'purple accent-3',
-  },
-  {
     title: 'Blog',
     to: '/blogs',
     icon: mdiPost,
