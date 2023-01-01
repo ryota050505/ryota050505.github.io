@@ -36,7 +36,7 @@
       <v-card-text
         class="white--text"
       >
-        &copy; 2022<span v-if="new Date().getFullYear() != '2022'"> - {{ new Date().getFullYear() }}</span> - りょーた
+        &copy; 2022<span v-if="new Date().getFullYear() != 2022"> - {{ new Date().getFullYear() }}</span> - りょーた
       </v-card-text>
     </v-card>
   </v-footer>
