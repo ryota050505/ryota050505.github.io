@@ -1,54 +1,36 @@
 <template>
-  <v-simple-table light>
+  <v-data-table
+    light
+    :headers="headers"
+    :items="items"
+    :loading="!items.length"
+    loading-text="Loading..."
+    :sort-by="'likes_count'"
+    sort-desc
+  >
     <template
-      #default
+      v-slot:item="{ item }"
     >
-      <thead>
-        <tr>
-          <th
-            v-for="(header, i) in headers"
-            :key="i"
-            class="text-left"
+      <tr @click="jumpLinkTo(item.url)">
+        <td>
+          {{ item.title }}
+        </td>
+        <td>
+          <v-chip
+            v-for="(tag, j) in item.tags"
+            :key="j"
+            class="ma-1"
+            small
           >
-            {{ header }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-if="!items.length"
-          class="text-center"
-        >
-          <td
-            :colspan="headers.length"
-          >
-            <MaterialsCircleLoader
-            />
-          </td>
-        </tr>
-        <tr
-          v-for="(item, i) in items"
-          :key="i"
-          @click="jumpLinkTo(item.url)"
-        >
-          <td>
-            {{ item.title }}
-          </td>
-          <td>
-            <span
-              v-for="(tag, j) in item.tags"
-              :key="j"
-            >
-              {{ tag.name }}
-            </span>
-          </td>
-          <td>
-            {{ item.likes_count }}
-          </td>
-        </tr>
-      </tbody>
+            {{ tag.name }}
+          </v-chip>
+        </td>
+        <td class="text-center">
+          {{ item.likes_count }}
+        </td>
+      </tr>
     </template>
-  </v-simple-table>
+  </v-data-table>
 </template>
 
 <script lang="ts">
@@ -66,9 +48,24 @@ export default class Qiita extends Vue{
   private items!: Array<object>
 
   private headers = [
-    'Title',
-    'Tags',
-    'Likes',
+    {
+      text: 'Title',
+      sortable: false,
+      value: 'title',
+      align: 'center',
+    },
+    {
+      text: 'Tags',
+      value: 'tags',
+      sortable: false,
+      align: 'center',
+    },
+    {
+      text: 'Likes',
+      value: 'likes_count',
+      align: 'center',
+      width: 100,
+    }
   ]
 
   private jumpLinkTo = jumpLinkTo
