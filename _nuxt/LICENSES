@@ -1,17 +1,4 @@
 /*!
- * Vue.js v2.7.14
- * (c) 2014-2022 Evan You
- * Released under the MIT License.
- */
-
-/*!
- * vuex v3.6.2
- * (c) 2021 Evan You
- * @license MIT
- */
-
-
-/*!
   * vue-scrollto v2.20.0
   * (c) 2019 Randjelovic Igor
   * @license MIT
@@ -49,3 +36,16 @@ PERFORMANCE OF THIS SOFTWARE.
   * (c) 2015-present Evan You
   * @license MIT
   */
+
+
+/*!
+ * Vue.js v2.7.14
+ * (c) 2014-2022 Evan You
+ * Released under the MIT License.
+ */
+
+/*!
+ * vuex v3.6.2
+ * (c) 2021 Evan You
+ * @license MIT
+ */
