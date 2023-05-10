@@ -1,6 +1,6 @@
 ---
 title: thymeleafでPUT、DELETEを扱う際の設定
-imgsrc: blog/github.svg
+imgsrc: programming/java.svg
 description: 'springframeworkのthymeleafでPUT、DELETEメソッドを扱う際の設定です。'
 position: 5
 category: プログラミング
