@@ -13,4 +13,4 @@ fullscreen: true
 
 https://github.com/ryota050505/noise-generator
 
-ここに一応書いておく
+ここに一応書いておきます
