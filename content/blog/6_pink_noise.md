@@ -5,15 +5,13 @@ description: 'ホワイトノイズにフィルタをかけてピンクノイズ
 position: 6
 category: 音楽
 tags: [音プログラミング]
-version: 1.0
+version: 1.1
 fullscreen: true
 ---
 
 ## 概要
 
-https://github.com/ryota050505/noise-generator
-
-ここに一応書いておきます
+githubにコードを置いています
 
 ``` python
 import numpy as np
